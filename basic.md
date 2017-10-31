@@ -85,6 +85,9 @@ See:
 
 # The simplest possible analysis
 
+See:
+[https://github.com/matthew-brett/msc_imaging/blob/master/first_activation.ipynb](https://github.com/matthew-brett/msc_imaging/blob/master/first_activation.ipynb)
+
 # Correlation
 
 # Convolution
