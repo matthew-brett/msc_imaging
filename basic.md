@@ -90,6 +90,9 @@ See:
 
 # Correlation
 
+See:
+[https://github.com/matthew-brett/msc_imaging/blob/master/voxel_time_courses.ipynb](https://github.com/matthew-brett/msc_imaging/blob/master/voxel_time_courses.ipynb)
+
 # Convolution
 
 * [http://matthew-brett.github.io/teaching/on_convolution.html](http://matthew-brett.github.io/teaching/on_convolution.html)
