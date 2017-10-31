@@ -1,6 +1,6 @@
 % Basic FMRI analysis
 % Matthew Brett
-% October 31st 2017
+% Halloween 2017
 
 # Plan of the talk
 
@@ -12,6 +12,10 @@
 * convolution;
 * regression and the GLM;
 * correction for multiple comparisons.
+
+# Consider
+
+[https://www.anaconda.com/distribution](https://www.anaconda.com/distribution)
 
 # Risks for error
 
@@ -48,9 +52,7 @@ Answers from people running neuroimaging labs vary from 5% to 50%.
 # Images, arrays
 
 See:
-https://github.com/matthew-brett/talks/fmri-processing/arrays_and_images.ipynb
-
-
+[https://github.com/matthew-brett/msc_imaging/blob/master/arrays_and_images.ipynb](https://github.com/matthew-brett/msc_imaging/blob/master/arrays_and_images.ipynb)
 
 # The end
 
