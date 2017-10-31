@@ -30,7 +30,8 @@ Increased risk of false findings for:
 6. larger numbers of groups studying same effects (publication bias);
 
 John P. A. Ioannidis (2005). “Why most published research findings are false.”
-PLoS medicine 2 (8): e124.  See also [exposition on Ioannidis 2005](https://matthew-brett.github.com/teaching/ioannidis_2005.html).
+PLoS medicine 2 (8): e124.  See also
+[https://matthew-brett.github.com/teaching/ioannidis_2005.html](https://matthew-brett.github.com/teaching/ioannidis_2005.html).
 
 # Error in neuroimaging
 
@@ -50,16 +51,7 @@ post](http://www.danielbor.com/dilemma-weak-neuroimaging).
 
 Answers from people running neuroimaging labs vary from 5% to 50%.
 
-# Images, arrays
-
-See:
-[https://github.com/matthew-brett/msc_imaging/blob/master/arrays_and_images.ipynb](https://github.com/matthew-brett/msc_imaging/blob/master/arrays_and_images.ipynb)
-
-# The end
-
-That's the end of the talk.
-
-# A lack of concern
+# How not to teach/publish/present
 
 > Computing results are now being presented in a very loose, “breezy” way—in
 > journal articles, in conferences, and in books. All too often one simply
@@ -75,3 +67,39 @@ Biostatistics 11(3) p385-8
 "What I cannot create, I do not understand"
 
 Found on Richard Feynman's blackboard after his death.
+
+# Images, arrays
+
+See:
+[https://github.com/matthew-brett/msc_imaging/blob/master/arrays_and_images.ipynb](https://github.com/matthew-brett/msc_imaging/blob/master/arrays_and_images.ipynb)
+
+# 3D images
+
+See:
+[https://github.com/matthew-brett/msc_imaging/blob/master/images_3d.ipynb](https://github.com/matthew-brett/msc_imaging/blob/master/images_3d.ipynb)
+
+# 4D images
+
+See:
+[https://github.com/matthew-brett/msc_imaging/blob/master/images_4d.ipynb](https://github.com/matthew-brett/msc_imaging/blob/master/images_4d.ipynb)
+
+# The simplest possible analysis
+
+# Correlation
+
+# Convolution
+
+* [http://matthew-brett.github.io/teaching/on_convolution.html](http://matthew-brett.github.io/teaching/on_convolution.html)
+
+# Regression and the GLM;
+
+* The General Linear Model [http://matthew-brett.github.io/teaching/glm_intro.html](http://matthew-brett.github.io/teaching/glm_intro.html)
+
+# Correction for multiple comparisons.
+
+* Bonferroni [http://matthew-brett.github.io/teaching/bonferroni_correction.html](http://matthew-brett.github.io/teaching/bonferroni_correction.html);
+* Random Fields [http://matthew-brett.github.io/teaching/random_fields.html](http://matthew-brett.github.io/teaching/random_fields.html)
+
+# The end
+
+That's the end of the talk.
