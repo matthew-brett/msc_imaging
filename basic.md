@@ -13,9 +13,10 @@
 * regression and the GLM;
 * correction for multiple comparisons.
 
-# Consider
+# To follow along
 
-[https://www.anaconda.com/distribution](https://www.anaconda.com/distribution)
+* [https://www.anaconda.com/distribution](https://www.anaconda.com/distribution)
+* [https://github.com/matthew-brett/msc_imaging/archive/master.zip](https://github.com/matthew-brett/msc_imaging/archive/master.zip)
 
 # Risks for error
 
