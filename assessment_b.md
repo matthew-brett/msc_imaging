@@ -19,52 +19,36 @@ readers can check and use your work.
 
 ## Parts
 
-This assessment (assessment B), has three parts. The three parts are:
+Assessment B has three parts:
 
-1. *study replication*: make a reproducible replication a published analysis
-   using publicly available data.  The deadline to complete this step is
-   December 15th;
-1. *replicate and extend*: write a report on a replicaton by an (allocated)
-   fellow student.  We'll call this fellow student your *replication partner*.
-   Fix any problems you find.  When you've finished fixing problems, you may
-   be able to move on to extending the replication.  The deadline for the
-   replication report is 4 January 2017.
-1. *replication update*: your replication partner will be also be attempting
-   to replicate your study.  As as result, you may well be editing your own
-   analysis, to fix mistakes or make the instructions clearer.  These changes
-   should be complete by 4 January 2017.
+1. *initial replication*: make a reproducible replication of a published analysis
+   on a dataset we will allocate to you.  The deadline to complete this step
+   is December 15th. Each member of your group will get a different analysis
+   to work on.  We will mark you on this replication, using the criteria below;
+1. *replication review*: write a report on a replication by an fellow student
+   in your group.  You will be the *replication reviewer* for your fellow. Fix
+   any problems you find.  The deadline for the replication review is 4
+   January 2017.  You should let your fellow student know about any problems
+   as you find them, they will need the information to improve their analysis
+   for the third part;
+1. *replication update*: using the feedback from your own replication
+   reporter, fix any errors and explain any points that are not clear.  Your
+   changes should be complete by 4 January 2017. We will mark this replication
+   update using the same criteria as the initial replication, and give you 75%
+   of the marks that you recover (see below).
 
-## Marking outline
-
-You will find the details of how marking works below, but, in outline, the
-procedure is:
-
-* We will mark the study replication out of 100 for: how easy is your analysis
-  to replicate?; how well did you explain and justify your analysis steps?; is
-  your replication correct?  Call this initial mark your *replication mark*.
-* In the replicate and extend phase, your job will depend on how well your
-  replication partner has done.  You should first replicate their result, and
-  fix any problems that you found, letting your partner know as you find
-  problems, so they can fix them (see below).  When your partner's replication
-  is fully fixed, you can move on to the extension phase, in which we ask you
-  to some new (and replicable) analyses based on the your partner's dataset.
-  Your mark will depend on how many problems you correctly found and fixed,
-  and, if you had time, whether you succeeded in extending the analysis.
-* For the replication update, you will have been receiving feedback from your
-  replication partner.  With that feedback, you can modify your original
-  analysis.  We will mark this modified analysis, and give you 75% of the
-  marks that you recovered in the new analysis.  For example, if your original
-  replication mark was 50 out of 100, and your replication update mark was 90
-  out of 100, your final replication mark would be 50 + (40 * 0.75) = 80 out
-  of 100.  Therefore part 3 allows you to recover a large proportion of the
-  marks lost in part 1.
+Your job in the replication review is to do the best job you can in finding
+mistakes, so that your fellow student can recover the most marks in the
+replication update.  Remember, if you miss a problem, and we (your
+instructors) find it, this will mean your fellow will not have a chance to fix
+the problem and recover the marks.
 
 ## Part 1: study replication
 
-By separate post, you will each get instructions pointing to a dataset from
-the [OpenFMRI project](https://www.openfmri.org).  In these specific
-instructions, we give you the particular analysis that we want you to
-replicate, and the form it should take.
+You will each get instructions pointing to a dataset from
+the [OpenFMRI project](https://www.openfmri.org).  In these instructions, we
+give you the particular analysis that we want you to replicate, and the form
+it should take.
 
 If you log onto the PBIC server, you will find you have a folder:
 
@@ -80,8 +64,10 @@ Inside that folder you will find a symbolic link:
 /home/people/xxx/replication/data
 ```
 
-that points to a read-only directory, with a copy of the OpenFMRI data that
-you will be analyzing.
+The link points to a read-only directory, with a copy of the OpenFMRI data
+that you will be analyzing, along with a file called `INSTRUCTIONS.txt` giving
+you more instructions on what you should replicate, and which data we have
+given you.
 
 You will also find a near-empty text file:
 
@@ -90,11 +76,12 @@ You will also find a near-empty text file:
 ```
 
 When you have finished the first past of the assignment, you will have filled
-out that file with all the instructions necessary for one of your colleages to
-replicate your analysis.
+out that file with all the instructions necessary for someone else to
+replicate your analysis.  The specific "Someone else"s are your future fellow
+student reviewer, and us, your instructors.
 
-We highly recommend that you edit this file, but if you prefer, you can also
-record the instructions in a Word file, which should be called:
+We highly recommend that you edit the `README.txt` file, but if you prefer,
+you can also record the instructions in a Word file, which should be called:
 
 ```
 /home/people/xxx/replication/README.docx
@@ -120,14 +107,31 @@ Your job is to:
   along with your reasoning for choosing the steps;
 * you will quickly find that it is much easier to check and replicate your own
   work, if you use scripting for your analyses.  This will also make it much
-  easier for your replication partner.
+  easier for your replication reviewer;
+* be careful to record your steps explicitly: steps that might seem obvious to
+  you and to the rest of your group, may not be as obvious to us, your
+  instructors.
 
-Note that, until December 16th:
+### Meanwhile, you can nominate potential reviewers
 
-* your `replication` directory can only be read by you, and by the system
-  administrators for the system; it cannot be read by your fellow students,
-  unless you give them specific permission to do that;
-* you will not know who your replication partner is.
+When you start your assignment, we will send out a list of the projects
+allocated to each student.
+
+If you like, you can choose up to 3 students on the this list as potential
+reviewers for your replication, in the second phase.  The people you nominate
+cannot be replicating the same analysis that you are working on.  You may
+already know that it is not uncommon for authors submitting articles to nominate reviewers.
+
+Submit your nominations by midnight on December 14th, by emailing Matthew at
+m.brett@bham.ac.uk.
+
+For the second phase, starting on December 15th, we will allocate you a
+reviewer.  We will try to give you one of your nominees, but we reserve the
+right to give you another student, if we can't match you with one of your
+nominees.
+
+If you don't nominate anyone, we will give you a reviewer at random (given the
+constraints of the people who have nominated).
 
 ### Submission
 
@@ -135,7 +139,7 @@ Note that, until December 16th:
 
 At midnight of December 15th, we will make a read-only copy of your directory
 `/home/people/xxx/replication` to `/home/FBI_assessment/xxx/replication`.
-Only you and your replication partner will be able to read this directory.
+Only you and your replication reviewer will be able to read this directory.
 So, *before 24:00 of December 15th* make sure that:
 
 * the `README.txt` / `README.docx` files are up to date;
@@ -145,8 +149,7 @@ So, *before 24:00 of December 15th* make sure that:
 
 ### Marking
 
-We will give you final marks for your initial submission along with the marks
-for the other stages (see below).  The marks will be on this basis:
+We will mark you out of 70 on the following basis:
 
 * is the description of what you did clear?
 * have you justified all the steps of your analysis?
@@ -158,39 +161,33 @@ for the other stages (see below).  The marks will be on this basis:
 * did you successfully replicate the original findings?  Or successfully show
   that the original findings are unlikely to be correct?
 
-## Part 2: replicate and extend.
+As you'll soon see, if you lose marks here, you'll have a chance to get most
+of them back in the replication update below.
 
-On December 16th, we will allocate you as a *replication partner* for another
-student.  The allocation will be random, except that your replication partner
-will have analyzed a different dataset.
+## Part 2: replication review
 
-Say your partner's PBIC username is `yyy`.  You will also now have read access
-to your replication partner's `/home/people/yyy/replication` directory and its
-read-only snapshot at `/home/FBI_assessment/yyy/replication`.  You will also
-find you have a read-write personal copy of the analysis at
-`/home/people/yyy/replication_partner`.  Inside you will find a file called
-`REPLICATE_REPORT.txt`.  This is where you will fill out your replication
-report.  As for the README file, you can instead make a file
-`REPLICATION_REPORT.docx` in Word format.  Your partner will also be able to
+We will tell you whose project you are reviewing on December 18th.
+
+Say the colleague you are reviewing for has PBIC username is `yyy`.  Your
+username is `xxx`.  You will also now have read access to their
+`/home/people/yyy/replication` directory and its read-only snapshot at
+`/home/FBI_assessment/yyy/replication`.  You will also find you have a
+read-write personal copy of the analysis at
+`/home/people/xxx/replication_review`.  Inside you will find a file called
+`REPLICATION_REVIEW.txt`.  This is where you will fill out your replication
+review.  As for the README file, you can instead make a file
+`REPLICATION_REVIEW.docx` in Word format.  Your colleague will also be able to
 read this directory.
 
-Your job is two-fold (depending on the time you have available):
+Your job is to:
 
-1. replicate your partner's analysis in your new folder
-   `/home/people/xxx/replication_partner`;
-1. write a replication report, in which you describe any problems that came
-   up, and how you fixed them, probably by negotiation with your partner;
-2. if you have time, extend your partner's analysis according to the new
-   instructions, that you will find in the file
-   `/home/people/xxx/replication_partner/EXTEND_INSTRUCTIONS.txt`.  These
-   instructions will give you five extensions you can carry out, each worth 10
-   points.  Run the extensions you have time for, and fill out the procedure
-   to replicate your extensions in the file
-   `/home/people/xxx/replication_partner/EXTEND_README.txt`.  You may also use
-   a Word format file
-   `/home/people/xxx/replication_partner/EXTEND_README.docx`.
+* replicate your partner's analysis in your new folder
+  `/home/people/xxx/replication_review`;
+1. write a replication review, in which you describe any problems that came
+   up, and how you fixed them. This is most usefully done by negotiation with
+   your partner.
 
-The replication report `REPLICATION_REPORT.txt` should follow the same scheme
+The replication report `REPLICATION_REVIEW.txt` should follow the same scheme
 as the marking section above.  Repeating here:
 
 * is the description of what you did clear?
@@ -203,72 +200,55 @@ as the marking section above.  Repeating here:
 * did you successfully replicate the original findings?  Or successfully show
   that the original findings are unlikely to be correct?
 
-However, we encourage you to negotiate with your replication partner, and work
-together to fix any problems that you find.  For each problem you find:
+However, we encourage you to negotiate with your fellow, and work together to
+fix any problems that you find.  For each problem you find:
 
-* make sure that you agree with your replication partner that this is an
-  error.  If you don't agree, contact Matthew Brett <m.brett@bham.ac.uk> for a
-  decision.  Note that you agree with your replication partner (or that
-  Matthew agreed).
+* make sure that you agree with your fellow that this is an error.  If you
+  don't agree, contact Matthew Brett <m.brett@bham.ac.uk> for a decision.
+  Note that you agree with your replication partner (or that Matthew agreed).
 * write a diagnosis of the problem;
 * write a description of the fix.
 
 Your aim is to describe how your replication partner could best recover all
 the marks you think they will lose for their original replication.
 
-When you have finished doing this, you can move on to extending the analysis,
-according to the `EXTEND_INSTRUCTIONS.txt` file.  Fill out the
-`EXTEND_README.txt` (or `.docx`) file.
+If your fellow has written a particularly good initial report, without
+significant errors, please suggest extensions to their replication.
 
-Don't go on to extending the analysis, until you have finished fixing the
-original replication.
+Remember that, if you miss problems in your fellow's replication, you will
+lose marks for your report (because you missed a problem), and they will lose
+marks for their final replication, because they may well not have found the
+problem, and therefore won't be able to fix it.
 
 ### Submission
 
 **Submission is automatic at midnight January 4th**
 
 At midnight of January 4th, we will make a read-only copy of your directory
-`/home/people/xxx/replication_partner`. Make sure that:
+`/home/people/xxx/replication_review`. Make sure that:
 
-* the `REPLICATION_REPORT.txt` / `REPLICATION_REPORT.docx` files are up to date;
-* if applicable, the `EXTEND_README.txt` (or `.docx`) file are up to date.
+* the `REPLICATION_REVIEW.txt` / `REPLICATION_REVIEW.docx` files are up to date;
 * all the analyses comprising the replication have been run inside that
-  folder, and the results files referred to in the `REPLICATION_REPORT` and
-  `EXTEND_README` files are available for us to look at.
+  folder, and the results files referred to in the `REPLICATION_REVIEW` are
+  available for us to look at.
 
 ### Marking
 
-The marks are out of 50.
+The marks are out of 30, for:
 
-The marking will depend on how may problems there are to fix in your partner's
-replication.  Remember, you will not know the score we will give to your
-partner's replication, so you will have to decide for yourself, where your
-partner would likely lose points.
-
-* If your partner's replication would score 50 or less, then all 50 of your
-  points from this part must come from fixes to your partner's replication.
-* If your partner's replication scores 100, then all 50 of your points must
-  come from doing all 5 of the 10 point extensions;
-* When your partner's replication would score between 50 and 100, then your
-  mark comes from a mixture of your fixes to their work, and the extensions
-  that you finished.
-
-To give an example, say you estimate that your partner would get 70 / 100. If
-that is true, then you have 30 marks to gain from fixing your partner's
-replication, and 20 marks to gain from extending their work.  So you would
-spend 60% of your time on fixing their work, and 40% of the time on doing 2 of
-the 10 point extensions.
-
-But, let's say you had missed a mistake in their analysis, and in fact they
-will get 60 / 100.  First, their mistake may make any of your extensions
-incorrect.  Second, this will mean that you can in fact only get a total of 10
-points for your extensions; any effort on extensions after 10 points will be
-wasted (at least in terms of marks).
+* your progress in replicating the initial replication. We will take into
+  account how difficult this replication was, given the the initial
+  replication;
+* the quality and accuracy of the the suggestions you make for improvement;
+* if there wasn't much room for improvement (the initial replication was well-
+  done and well-described), then we will look at your suggestions for
+  extensions to the replication.  We will be particularly impressed if you
+  carry out the extensions you suggest.
 
 # Part 3: replication update
 
-Meanwhile, your replication partner will be feeding back to you about your own
-replication.
+Meanwhile, your replication reviewer will be feeding back to you about your
+own replication.
 
 Continue working in your original `/home/people/xxx/replication` folder.
 Remember, you have a read-only snapshot of your replication at
@@ -308,13 +288,14 @@ If your mark increases, we will take the increase, and add 75% of it to your
 original replication mark, to give your final replication mark.
 
 Call your original replication mark `R`.  Call your updated replication mark
-`U`.  Your final replication mark is `R + (U - R) * 0.75`.
+`U`.  Your *recovered marks* are `U - R`. Your final replication mark is `R +
+(U - R) * 0.75`.
 
-To repeat the example above: if your original replication mark was 50, and
-your updated replication mark was 90, then your final replication mark is 50 +
-(90 - 50) * 0.75 = 80.
+To give a specific example: if your original replication mark was 35 out of
+70, and your updated replication mark was 60, then your final replication mark
+is 35 + (60 - 35) * 0.75 = 53.75 out of 70.
 
 ## Marking overall
 
-Your overall mark is out of 150 and is your final replication mark (out of
-100), plus your final replicate and extend mark (out of 50).
+Your overall mark is out of 100 and is your *final replication mark* (out of
+70), plus the mark for your replication review (out of 30).
