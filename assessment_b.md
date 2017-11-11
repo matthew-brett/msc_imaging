@@ -277,7 +277,7 @@ folder at midnight on January 4th.  Make sure that:
 * the `README.txt` / `README.docx` files are up to date;
 * all the analyses comprising the update replication have been run inside that
   folder, and the results files referred to in the README file are available
-  for your replication partner to look at.
+  for your instructors to look at.
 
 ### Marking
 
