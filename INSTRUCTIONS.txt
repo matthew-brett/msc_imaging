@@ -1,0 +1,52 @@
+# Instructions for DS009 replication
+
+In this folder, you will find a copy of the data from the DS009 OpenFMRI
+dataset:
+
+https://openfmri.org/dataset/ds000009
+
+The version you have here is revision 2.0.3 (see the dataset web page for
+details).
+
+The first author of this paper is Jessica Cohen, who is now at the University
+of North Carolina:
+
+http://cohenlab.web.unc.edu/
+
+The web page points you to the methods write-up for the study at:
+
+https://openfmri.org/media/ds000009/ds009_methods_0_CchSZHn.pdf
+
+There is a copy of that document in this folder.
+
+The web page also points you to the canonical write-up of this experiment,
+which is Cohen's PhD thesis.  You can get that by following the links on the
+page, and logging in through your UoB sign-in, but for your convenience, this
+folder has a copy at:
+
+jrcohen_dissertation.pdf
+
+The experiment you have here is the one that Cohen describes in chapter 4 of
+her thesis. The chapter title is "The neural basis of self-control"; it is on
+page 53 as numbered, page 74 in the PDF.  As far as I can see, the methods
+document above is a better-quality reproduction of the methods section in
+chapter 4 of the thesis. You will need the thesis chapter for the description
+of their FMRI analysis.
+
+Your job is to reproduce the activation maps for the main effects of the four
+tasks, as described in figure 4.5 of the thesis chapter, and tables 4.2
+through 4.5.
+
+There are four behavioural tasks, and four "main effects".  These are (task /
+main effect contrast):
+
+* Stop-Signal (SS) task / successful stop - go;
+* Balloon Analogue Risk Task (BART) / cashing out - inflating the balloon;
+* Temporal Discounting (TD) task / difficult trials varying parametrically
+  with delay;
+* Emotion Regulation (ER) task / activity for "suppress negative" trials
+  with positive regression against self-reported regulation.
+
+In order to do this, you should repeat their analysis as exactly as you can.
+
+In your README.txt / README.docx file, for each of t
