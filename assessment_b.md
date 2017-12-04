@@ -16,7 +16,7 @@ complete both parts. This information is for part B only.
 We designed this assessment to give you some experience of:
 
 * replicating a published experiment;
-* writing up your analysis in a way that can be easily replicated by others
+* writing up your analysis in a way that can be easily replicated by others;
 * reviewing and improving another person's analysis.
 
 These skills are useful to you because a typical imaging experiment involves
@@ -92,7 +92,7 @@ You will also find a near-empty text file:
 /home/people/xxx/replication/REPLICATION.txt
 ```
 
-When you have finished the first past of the assignment, you will have filled
+When you have finished the first part of the assignment, you will have filled
 out the `REPLICATION.txt` file with all the instructions necessary for someone
 else to replicate your analysis. Specifically this will need to be for one of
 your fellow students who will be your reviewer, and for us, your instructors.
