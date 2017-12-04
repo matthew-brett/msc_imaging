@@ -26,7 +26,7 @@ def bart_preprocessor(df):
     before_explode[:-1] = explodes[1:]
     trial_type = action.apply(str.lower)
     trial_type[trial_type == 'accept'] = 'inflate'
-    trial_type[before_explode] = 'before_explode'
+    trial_type[before_explode] = 'beforeexplode'
     duration = df['reaction_time'].copy()
     duration[explodes] = 2
     amplitude = pd.Series(np.ones(len(df)))
@@ -56,7 +56,7 @@ def ss_preprocessor(df):
 TASK_DEFS = dict(
     balloonanalogrisktask=dict(old_no=1,
                                preprocessor=bart_preprocessor,
-                               conditions= ['inflate', 'before_explode',
+                               conditions= ['inflate', 'beforeexplode',
                                             'cashout', 'explode'],
                                ),
     stopsignal=dict(old_no=2,
