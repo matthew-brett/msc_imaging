@@ -75,23 +75,17 @@ dataset web page for details).
 The first author of the relevant publication is Jessica Cohen, who is now at
 the University of North Carolina: http://cohenlab.web.unc.edu/
 
-The OpenFMRI web page points you to the methods write-up for the study at:
-
-https://openfmri.org/media/ds000009/ds009_methods_0_CchSZHn.pdf
-
-There is a copy of that document in the data folder.
-
-The web page also points you to the canonical write-up of this experiment,
-which is Cohen's PhD thesis.  You can get that by following the links on the
-page, and logging in through your UoB sign-in, but for your convenience, the
-data folder has a copy at `jrcohen_dissertation.pdf`.
+The OpenFMRI web page points you to the methods write-up for the study and a
+rather poor reproduction of the canonical write-up of this experiment, which
+is Cohen's PhD thesis.  You can get that by following the links on the page,
+and logging in through your UoB sign-in.  Luckily for us, Jessica Cohen sent a
+high-quality copy for us to use, available in your data folder.
 
 The experiment you have here is the one that Cohen describes in chapter 4 of
 her thesis. The chapter title is "The neural basis of self-control"; it is on
-page 53 as numbered, page 74 in the PDF.  As far as I can see, the methods
-document above is a better-quality reproduction of the methods section in
-chapter 4 of the thesis. The thesis chapter contains the description of their
-FMRI analysis, but we have reproduced that section of the thesis below.
+page 53 as numbered, page 74 in the PDF.  The thesis chapter contains the
+description of the FMRI analysis, but we have reproduced that section of the
+thesis below.
 
 ## Overview of the task
 
@@ -114,7 +108,9 @@ statistical techniques that we have not covered in the lectures or practicals:
 
 You can earn *extra marks* by analyzing these last two experiments (see
 below).  If you analyze these experiments, you will need to do some extra
-reading / ask for extra help - which we are very happy to provide.
+reading / ask for extra help - which we are very happy to provide.  Please
+also see the script `ds009_onsets.py` for a hint on how to generate the event
+files that you will need for the TD and ER tasks.
 
 In order to replicate the two main effects (SS and BART), you should repeat
 their analysis as exactly as you can, with a few exceptions, noted below.
@@ -186,7 +182,7 @@ tasks in this assessment.
 > (Woolrich et al., 2001).
 
 FBI annotation: the next sentence applies only to the TD experiment, which is
-not part of your assessment:
+not part of your standard assessment:
 
 > Parametric regressors were created by modulating the amplitude of a delta
 > function using a demeaned version of the parameter of interest.
@@ -290,10 +286,13 @@ For each subject, you will need the anatomical T1 file at
 The ``.nii.gz`` files are the 4D EPI FMRI runs, and the `.tsv` files give full
 details about all events during the runs.  You will also find event files for
 each event named in the corresponding FMRI analysis methods section above (not
-shown in the listing).
+shown in the listing).  These files end in `_label-<event_name>.txt`, where
+`<condition_name>` is the name of the event.  For the BART task these are
+`inflate, beforeexplode, cashout, explode`.  For the SS task these are
+`gocorrect, stopcorrect, stopincorrect, goincorrect`.
 
-You'll find the scanning parameters, such as the Time to Repeat (TR) in the
-files ending in `_bold.json`.
+You'll find the scanning parameters, such as the order of slice acquisition,
+in the files ending in `_bold.json`.
 
 ## Your report
 
