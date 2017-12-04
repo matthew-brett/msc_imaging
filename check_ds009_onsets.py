@@ -1,49 +1,60 @@
 """ Check against older event files
 """
-from os.path import join as pjoin, split as psplit, exists, abspath, dirname
+from os.path import join as pjoin, exists, dirname, split as psplit
 from glob import glob
 
 import numpy as np
 import pandas as pd
 
-from ds009_onsets import TASK_DEFS, parse_tsv
+from ds009_onsets import TASK_DEFS, parse_tsv_name, tsv2events, NEW_COND_PATH
 
 OLD_COND_PATH = pjoin(dirname(__file__), 'old_onsets')
-NEW_COND_PATH = pjoin(dirname(__file__), 'ds000009_R2.0.3')
 
 
 def older_cond_filenames(sub_no, task_name, run_no, model_no=1):
     info = TASK_DEFS[task_name]
     old_task_no = info['old_no']
+    run_no = run_no if run_no is not None else 1
     root = pjoin('sub%03d' % sub_no,
-                  'model',
-                  'model%03d' % model_no,
-                  'onsets',
-                  'task%03d_run%03d' % (old_task_no, run_no))
+                 'model',
+                 'model%03d' % model_no,
+                 'onsets',
+                 'task%03d_run%03d' % (old_task_no, run_no))
     filenames = []
-    for i, (name, func) in enumerate(info['conditions']):
+    for i, name in enumerate(info['conditions']):
         filenames.append(pjoin(root, 'cond%03d.txt' % (i + 1)))
     return filenames
 
 
 def check_stopsignal(tsv_path, old_path):
     path, fname = psplit(tsv_path)
-    sub_no, task_name, run_no = parse_tsv(fname)
+    sub_no, task_name, run_no = parse_tsv_name(tsv_path)
     cond_fnames = older_cond_filenames(sub_no, task_name, run_no)
-    info = TASK_DEFS[task_name]
-    df = pd.read_table(tsv_path)
-    for i, (name, func) in enumerate(info['conditions']):
-        ons_dur_amp = func(df)
+    orig_df = pd.read_table(tsv_path)
+    events = tsv2events(tsv_path)
+    new_cond_prefix = pjoin(
+        path, 'sub-%02d_task-stopsignal_run-%02d_label-' %
+        (sub_no, run_no))
+    for i, name in enumerate(TASK_DEFS['stopsignal']['conditions']):
+        ons_dur_amp = events[name]
+        # Check new event file
+        new_cond_fname = new_cond_prefix + name + '.txt'
+        new_cond_res = np.loadtxt(new_cond_fname)
+        if ons_dur_amp.size == 0:
+            assert new_cond_res.size == 0
+        else:
+            assert np.allclose(ons_dur_amp, new_cond_res, atol=1e-5)
         old_cond_fname = pjoin(old_path, cond_fnames[i])
         if not exists(old_cond_fname):
             assert(len(ons_dur_amp) == 0)
             continue
         old_events = np.atleast_2d(np.loadtxt(old_cond_fname))
-        msg = 'check sub {} run {} condition {} (cond no {})'.format(
-            sub_no, run_no, name, (i + 1))
+        run_part = '' if run_no is None else ' run {}'.format(run_no)
+        msg = 'check sub {}{} condition {} (cond no {})'.format(
+            sub_no, run_part, name, (i + 1))
         if len(ons_dur_amp) != len(old_events):
             print(msg)
-            print_disjoint_events(ons_dur_amp, old_events, df)
+            print_disjoint_events(ons_dur_amp, old_events, orig_df)
         elif not np.allclose(ons_dur_amp, old_events, atol=1e-4):
             print(msg)
             print('onsets do not match to given precision')
