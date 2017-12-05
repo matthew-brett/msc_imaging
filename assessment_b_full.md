@@ -291,6 +291,9 @@ shown in the listing).  These files end in `_label-<event_name>.txt`, where
 `inflate, beforeexplode, cashout, explode`.  For the SS task these are
 `gocorrect, stopcorrect, stopincorrect, goincorrect`.
 
+If there is no `.txt` file for a particular event, assume that there were not
+events of that type for the matching scanning run.
+
 You'll find the scanning parameters, such as the order of slice acquisition,
 in the files ending in `_bold.json`.
 
