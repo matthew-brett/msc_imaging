@@ -1,2 +1,4 @@
 .ipynb_checkpoints/
 an_eye.png
+__pycache__/
+.cache/
