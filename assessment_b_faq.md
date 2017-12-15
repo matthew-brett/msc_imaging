@@ -37,7 +37,7 @@ where `xxx` is your username.   You have two options:
     and then use an output filename like
     `/home/people/xxx/replication/analysis/sub-01/anat/sub-01_T1w_brain`
 
-## Why does Cohen's thesis FLIRT for registration?
+## What's this about using FLIRT for registration?
 
 The very observant among you may have noticed that chapter 2 of Cohen's thesis
 gives more detail on the two-step registration procedure that she used again
