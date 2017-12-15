@@ -41,7 +41,7 @@ where `xxx` is your username.   You have two options:
 
 The very observant among you may have noticed that chapter 2 of Cohen's thesis
 gives more detail on the two-step registration procedure that she used again
-in chapter 4 (where chapter 4 refers to the experiment you are analyzing.
+in chapter 4 (where chapter 4 refers to the experiment you are analyzing).
 That chapter has the following text (section 2.2.5):
 
 > A 3-step registration process was applied using FSL’s FLIRT module for
