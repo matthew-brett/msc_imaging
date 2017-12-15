@@ -16,8 +16,12 @@ for tsv_path in glob(pjoin(start_path,
     inflates = len(df[df['action'] == 'ACCEPT'])
     pumps.append((psplit(tsv_path)[1], inflates))
 
+# Mean of the regressor
+counts = [count for name, count in pumps]
+mean_count = sum(counts) / len(counts)
+
 # Write text file with pump numbers
 with open('bart_pumps.txt', 'wt') as fobj:
-    for name, n in pumps:
-        fobj.write('{}\t{}\n'.format(name, n))
-
+    for name, count in pumps:
+        centred = count - mean_count
+        fobj.write('{}\t{:.2f}\n'.format(name, centred))
