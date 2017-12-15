@@ -64,3 +64,28 @@ background on recording the transformations.
 ## What is spatial smoothing?
 
 See: https://matthew-brett.github.io/teaching/smoothing_intro.html
+
+## What's this about "number of pumps" for the BART?
+
+You'll find this in the assessment document, quoting from Cohen's thesis:
+
+> The model for each task included a regressor modeling mean activity and
+> demeaned regressors for SSRT (SS), number of pumps (BART), k (TD), and
+> amount of reported regulation (ER). Outlier deweighting was performed using
+> a mixture modeling approach (Woolrich, 2008).
+
+These are the specifications for the model at the second level.  At the second
+level, the rows in the model correspond to COPE scans, one per run.  The
+regressors in the section above therefore have one value per run.
+
+In the case of the BART, there is only one run per subject, and therefore one
+value per subject.
+
+The value is the number of times the subject inflated the balloon over the
+course of the run.  You'll see my algorithm for that calculation at:
+
+https://github.com/matthew-brett/msc_imaging/blob/master/bart_pumps.py
+
+The result of running that algorithm is the file at:
+
+https://github.com/matthew-brett/msc_imaging/blob/master/bart_pumps.txt
