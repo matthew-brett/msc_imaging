@@ -37,6 +37,12 @@ where `xxx` is your username.   You have two options:
     and then use an output filename like
     `/home/people/xxx/replication/analysis/sub-01/anat/sub-01_T1w_brain`
 
+## Do I need to reorient the structural images?
+
+Have a look at the structural files with fsleyes - are they in the correct
+orientation?  Or they they sagittal images like you had in the workshop?  You
+need to reorient if they are not already in the correct orientation.
+
 ## What's this about using FLIRT for registration?
 
 The very observant among you may have noticed that chapter 2 of Cohen's thesis
