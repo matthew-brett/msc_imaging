@@ -95,3 +95,17 @@ https://github.com/matthew-brett/msc_imaging/blob/master/bart_pumps.py
 The result of running that algorithm is the file at:
 
 https://github.com/matthew-brett/msc_imaging/blob/master/bart_pumps.txt
+
+## Should I add a coordinate results table?
+
+Cohen gives a table of coordinates, estimated brain areas, maximum z score and
+cluster extent for each contrast.  If you want to check your results, you may
+also want to generate a matching table.  We would love to see that in your
+report, as confirmation, but we won't mark you down if you don't include it.
+
+To get a results table for a particular contrast map, open the corresponding
+`report_poststats.html` file in your FEAT results directory, and click on the
+contrast image display.  You should get a statistics result table.  In fact
+this calls up the matching `cluster_zstatN.html` file where N is your contrast
+number.  See the [FEAT User
+Guide](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide) for more detail.
