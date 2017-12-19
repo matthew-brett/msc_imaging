@@ -166,5 +166,5 @@ sub-01/dwi
 These are Diffusion Weighted Images (DWI).  They are very interesting images,
 but outside the scope of Cohen's analysis, and your assessment.  In your
 future careers, you will probably find papers trying to relate the anatomical
-connectivity information from these DWI images to the funcitonal information
+connectivity information from these DWI images to the functional information
 from the BOLD contrast images, but that's not your task here.
