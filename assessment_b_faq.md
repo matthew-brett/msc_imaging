@@ -109,3 +109,40 @@ contrast image display.  You should get a statistics result table.  In fact
 this calls up the matching `cluster_zstatN.html` file where N is your contrast
 number.  See the [FEAT User
 Guide](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide) for more detail.
+
+## Slice timing
+
+You may want to do slice timing on your first-level analyses.
+
+Cohen does not refer to slice timing in her write-up, but you may prefer to
+put it into your pipeline.
+
+Slice timing adjusts the functional scans for the fact that the scanner
+collects the slices one by one, so the last slice that the scanner collects
+is nearly one TR in time after the first slice in the volume.
+
+One way of adjusting for this, is by interpolating the scan data in time, to
+get an estimate of what the voxel values would have been, if they had all been
+collected at the same time.
+
+See my [slice timing
+tutorial](http://matthew-brett.github.io/teaching/slice_timing.html) for an
+introduction.
+
+First you will need to know what order the scanner collected the slices in
+your data.   To help you with this, I have written a tiny script, available
+at:
+
+https://github.com/matthew-brett/msc_imaging/blob/master/show_slice_order.py
+
+Use it by downloading to your PBIC account somewhere, then run with:
+
+```
+python show_slice_order.py data/ds000009_R2.0.3/sub-01/func/sub-01_task-*.json
+```
+
+It will print out the slice order of each functional run, as recorded in the
+[JSON](https://en.wikipedia.org/wiki/JSON) file for that run.
+
+To do the slice-timing correction in FSL, see the [FEAT User
+Guide](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide).
