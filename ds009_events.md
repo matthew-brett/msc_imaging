@@ -57,6 +57,9 @@ This suggests four event-related regressors.
 
 Indeed there are four condition files in the original onsets.
 
+Investigation reveals these to be more or less these trial types in that order
+(there are a few mis-classified failed stops).
+
 ## Balloon analogue risk-taking (BART) task
 
 Task 1 in the original onsets.
@@ -67,6 +70,8 @@ Task 1 in the original onsets.
 > began at stimulus onset and lasted the duration of the participant's RT. The
 > explosion event began at the time of the explosion and lasted the amount of
 > time the exploded balloon was on the screen (2 seconds).
+
+## The other two tasks
 
 > For the temporal discounting task, the model included events for trials
 > predefined as hard choices and trials predefined as easy choices. It also

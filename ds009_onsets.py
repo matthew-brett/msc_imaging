@@ -123,7 +123,8 @@ def write_task(tsv_path):
         new_fname = fname_prefix + name + '.txt'
         print('Writing', tsv_path, 'to', new_fname)
         oda = events[name]
-        np.savetxt(new_fname, oda, '%f', '\t')
+        if len(oda):
+            np.savetxt(new_fname, oda, '%f', '\t')
 
 
 def write_all_tasks(start_path):

@@ -39,10 +39,10 @@ def check_stopsignal(tsv_path, old_path):
         ons_dur_amp = events[name]
         # Check new event file
         new_cond_fname = new_cond_prefix + name + '.txt'
-        new_cond_res = np.loadtxt(new_cond_fname)
-        if ons_dur_amp.size == 0:
-            assert new_cond_res.size == 0
+        if len(ons_dur_amp) == 0:
+            assert not exists(new_cond_fname)
         else:
+            new_cond_res = np.loadtxt(new_cond_fname)
             assert np.allclose(ons_dur_amp, new_cond_res, atol=1e-5)
         old_cond_fname = pjoin(old_path, cond_fnames[i])
         if not exists(old_cond_fname):

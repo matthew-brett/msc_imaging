@@ -133,9 +133,10 @@ First you will need to know what order the scanner collected the slices in
 your data.   To help you with this, I have written a tiny script, available
 at:
 
-https://github.com/matthew-brett/msc_imaging/blob/master/show_slice_order.py
+https://raw.githubusercontent.com/matthew-brett/msc_imaging/master/show_slice_order.py
 
-Use it by downloading to your PBIC account somewhere, then run with:
+Use it by downloading the file as `show_slice_order.py` to your PBIC account
+somewhere, then run with:
 
 ```
 python show_slice_order.py data/ds000009_R2.0.3/sub-01/func/sub-01_task-*.json
