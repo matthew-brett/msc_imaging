@@ -147,3 +147,24 @@ It will print out the slice order of each functional run, as recorded in the
 
 To do the slice-timing correction in FSL, see the [FEAT User
 Guide](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide).
+
+Note that I haven't done all the work for you in my script.  You need to work out how the output of my script relates the slice timing inputs that FSL accepts, and then either adapt the script to write the file you need, or take the output and put it into a file by hand.
+
+## What are the files in the `dwi` directory?
+
+Each subject has a `dwi` directory, alongside the `anat` and `func`
+directories.  Here's a listing for `sub-01`.
+
+```
+sub-01/dwi
+|-- sub-01_dwi.bval
+|-- sub-01_dwi.bvec
+|-- sub-01_dwi.json
+`-- sub-01_dwi.nii.gz
+```
+
+These are Diffusion Weighted Images (DWI).  They are very interesting images,
+but outside the scope of Cohen's analysis, and your assessment.  In your
+future careers, you will probably find papers trying to relate the anatomical
+connectivity information from these DWI images to the funcitonal information
+from the BOLD contrast images, but that's not your task here.
