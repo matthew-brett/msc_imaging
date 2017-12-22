@@ -168,3 +168,32 @@ but outside the scope of Cohen's analysis, and your assessment.  In your
 future careers, you will probably find papers trying to relate the anatomical
 connectivity information from these DWI images to the functional information
 from the BOLD contrast images, but that's not your task here.
+
+## What's the "sigma" in high-pass filtering?
+
+Thanks to Mairi Houlgreave for this question.
+
+In Cohen's description, you will see:
+
+> Time-series statistical analysis was carried out using FILM (FMRIBs Improved
+> Linear Model) with local autocorrelation correction after highpass temporal
+> filtering (Gaussian-weighted least-squares straight line fitting with sigma
+> = 33.0s).
+
+That is confusing, because the parameter you will see in the FEAT GUI is the
+the high-pass frequency cut-off in seconds, where the default is 100.
+However, if you run an analysis with high-pass filtering enabled, and a
+cut-off of 100, you will something like this in the `report_prestats.html`
+file:
+
+> highpass temporal filtering (Gaussian-weighted least-squares straight line
+> fitting, with sigma=50.0s).
+
+As usual, see the [FEAT User
+Guide](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide) for some more
+detail on the implementation of high-pass filtering with regression line
+fitting.  It appears that the "sigma" setting in the FEAT report corresponds
+to the cut-off value divided by 2.  I don't know of a solid reference for
+this, but see [this wiki entry][1]
+
+  [1] https://www.spinozacentre.nl/wiki/index.php/NeuroWiki:Processing_fMRI_(FSL)#Temporal_filtering
