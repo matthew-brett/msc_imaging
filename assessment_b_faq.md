@@ -194,6 +194,6 @@ Guide](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide) for some more
 detail on the implementation of high-pass filtering with regression line
 fitting.  It appears that the "sigma" setting in the FEAT report corresponds
 to the cut-off value divided by 2.  I don't know of a solid reference for
-this, but see [this wiki entry][1]
+this, but see [this wiki entry][1].
 
-  [1] https://www.spinozacentre.nl/wiki/index.php/NeuroWiki:Processing_fMRI_(FSL)#Temporal_filtering
+  [1]: https://www.spinozacentre.nl/wiki/index.php/NeuroWiki:Processing_fMRI_(FSL)#Temporal_filtering
