@@ -197,3 +197,85 @@ to the cut-off value divided by 2.  I don't know of a solid reference for
 this, but see [this wiki entry][1].
 
   [1]: https://www.spinozacentre.nl/wiki/index.php/NeuroWiki:Processing_fMRI_(FSL)#Temporal_filtering
+
+## Any hints for the group models?
+
+Here's the relevant part of Cohen's descriptions for the group models.
+
+> For the two tasks that had more than one run (SS and ER), data were combined
+> across the two runs using a fixed effects model, and then modeled using
+> mixed effects at the group level with FSL's FLAME model (Stage 1 only). The
+> model for each task included a regressor modeling mean activity and demeaned
+> regressors for SSRT (SS), number of pumps (BART), k (TD), and amount of
+> reported regulation (ER).
+
+To recap what you have done already in the workshops, we return to the distant
+days of workshop 5.
+
+You did two types of higher-level analysis in that workshop.
+
+*   Higher-level analysis 1:
+
+    * first level analysis of each FMRI run;
+    * one second level analysis for each subject with more than one run, to
+      average across runs within subject;
+    * third level analysis comparing a mixture of first level analysis (for
+      subjects with only one run) with second level analyses (for subjects
+      with more than one run).
+
+*    Higher-level analysis 2:
+
+    * first level analysis of each FMRI run (you re-used these);
+    * one big second level analysis in which you use all the first level
+      analysis directories, and make contrasts that write out the average
+      across runs within subject;
+    * third level analysis using the contrast images from the second level
+      analysis, one per subject (one per contrast at the second level).
+
+The FEAT user guide uses the term "mid-level" for the "second level" analyses
+above.  The second level / mid-level analyses are to combine data across runs
+within subject.
+
+If you only have one run per subject, then you don't need a mid-level
+analysis, and you can go straight to the third level.  We can also call this
+the group level.
+
+If you do have more than one run per subject, then you will need to do a
+mid-level analysis.   Read Cohen's description above, and try and work out
+which of higher-level analysis 1 or 2 she has used.
+
+All the above is about the machinery to use for the group modeling.  The next
+set of questions is about the actual group model Cohen is describing in her
+section above.
+
+For the SS task, I believe the group model is just the column of all ones to
+model the group mean.
+
+For the BART task, the group model is one column of all ones to model the
+mean, and one column giving the number of pumps. This second column has had
+the mean subtracted (and so has a mean of 0).  See above for the values of
+that regressor.  That's the model - but you need to work out which contrast
+she has used for her main effect.
+
+I think you can work this out, but you will probably get some help from the
+desciptions of the cluster tables later on in Cohen's chapter 4.
+
+Here's the caption for Table 4.3:
+
+> Table 4.3: Clusters associated with cashing out - inflating the balloon on
+> the BART.
+
+If you apply a contrast of "1 0" to the design with the group mean and the
+demeaned regressor, you will select the group mean column, and the output will
+show you voxels where the first-level contrast is high or low across subjects.
+If you apply a contrast of "0 1" to that design, you will get voxels where the
+first level contrast value has a linear relationship to the number of pumps.
+
+What do you think from Cohen's descriptions - has she used her contrast to
+selet the group mean column for the BART, or to select the number of pumps
+regressor?
+
+If you are among the brave, you may be analyzing the ER and TD tasks.  Because
+you are brave, I know you will not want much help, but, try reading the
+cluster table descriptions for these contrasts.  See whether you can work out
+what contrasts Cohen has applied to her group model.
