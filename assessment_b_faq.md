@@ -279,3 +279,26 @@ If you are among the brave, you may be analyzing the ER and TD tasks.  Because
 you are brave, I know you will not want much help, but, try reading the
 cluster table descriptions for these contrasts.  See whether you can work out
 what contrasts Cohen has applied to her group model.
+
+## Why do I get an error when doing non-linear registration
+
+Some of you have found that you get an error when you try to do non-linear
+registration.   The error starts with something like:
+
+> Warning: nonlinear registration is turned on but FEAT cannot automatically
+> find the whole-head image related to the selected brain-extracted structural
+> image /home/people/xxx/replication/my_data/sub-01/sub-01_T1_brain (this
+> needs to end in "_brain").
+
+When FSL does non-linear registration, it likes to have access to the
+whole-brain image - the image before skull stripping.  To get this, it looks
+for an image with the same name as the skull-stripped image, but without the
+`_brain` suffix.  So, in the case above, FSL is looking for an image called
+`/home/people/xxx/replication/my_data/sub-01/sub-01_T1.nii.gz`.  You can
+provide this by linking the original T1w anatomical image for that subject
+into your directory with the correct name.  For example:
+
+```
+cd ~/replication
+ln -s data/ds000009_R2.0.3/sub-01/anat/sub-01_T1w.nii.gz my-data/sub-01/sub-01_T1.nii.gz
+```
