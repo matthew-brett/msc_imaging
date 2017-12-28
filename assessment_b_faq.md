@@ -96,6 +96,39 @@ The result of running that algorithm is the file at:
 
 https://github.com/matthew-brett/msc_imaging/blob/master/bart_pumps.txt
 
+## How about the SSRT? I think I need this for my group model
+
+Indeed you do need the SSRT for your group model (see below).
+
+Cohen describes the SSRT calculation in section 4.4.2 of her thesis:
+
+> To calculate SSRT, first all correct RTs were arranged in an assumption-free
+> distribution in ascending order. Then the proportion of failed inhibition
+> (i.e., the proportion of stop trials on which the participant responded) was
+> determined. The RT corresponding to that proportion was computed (i.e., if
+> failed inhibition was .55, the RT corresponding to 55% of the area under the
+> RT distribution curve): the quantileRT. SSRT was calculated as the
+> difference between the quantileRT and the average SSD.
+
+I assume that she did this calculation from the behavioural data recorded for
+the FMRI runs, and that she pooled the data across the two SS task runs, to
+give an SSRT for each subject.
+
+You'll see my implementation of the SSRT algorithm in:
+
+https://github.com/matthew-brett/msc_imaging/blob/master/write_ssrts.py
+
+The result of running that algorithm on the FMRI event files is here:
+
+https://github.com/matthew-brett/msc_imaging/blob/master/ssrts.tsv
+
+That file contains the regressor you need for your higher-level analysis (see
+below).
+
+You might also be interested in my exploration of the SSRT value in:
+
+https://github.com/matthew-brett/msc_imaging/blob/master/read_ssrt.ipynb
+
 ## Should I add a coordinate results table?
 
 Cohen gives a table of coordinates, estimated brain areas, maximum z score and
@@ -248,37 +281,51 @@ All the above is about the machinery to use for the group modeling.  The next
 set of questions is about the actual group model Cohen is describing in her
 section above.
 
-For the SS task, I believe the group model is just the column of all ones to
-model the group mean.
-
-For the BART task, the group model is one column of all ones to model the
-mean, and one column giving the number of pumps. This second column has had
-the mean subtracted (and so has a mean of 0).  See above for the values of
-that regressor.  That's the model - but you need to work out which contrast
-she has used for her main effect.
+For the SS task, the group model is one column of all ones to model the mean,
+and one column giving the SSRT value for each subject.  The second column has
+had the mean subtracted.  See above for the SSRT values.  That's the model -
+but you need to work out which contrast she has used for her main effect.
 
 I think you can work this out, but you will probably get some help from the
 desciptions of the cluster tables later on in Cohen's chapter 4.
 
-Here's the caption for Table 4.3:
+Here's the caption for Table 4.2:
 
-> Table 4.3: Clusters associated with cashing out - inflating the balloon on
-> the BART.
+> Clusters associated with successful stopping - going on the SS task.
 
 If you apply a contrast of "1 0" to the design with the group mean and the
 demeaned regressor, you will select the group mean column, and the output will
 show you voxels where the first-level contrast is high or low across subjects.
+
 If you apply a contrast of "0 1" to that design, you will get voxels where the
-first level contrast value has a linear relationship to the number of pumps.
+first level contrast value has a linear relationship to the SSRT.
 
 What do you think from Cohen's descriptions - has she used her contrast to
-selet the group mean column for the BART, or to select the number of pumps
-regressor?
+selet the group mean column for the BART, or to select the SSRT regressor?
+
+For the BART task, the group model is one column of all ones to model the
+mean, and one column giving the number of pumps. This second column has had
+the mean subtracted (and so has a mean of 0).  See above for the values of
+that regressor.  As above, you need to work out which contrast she has used
+for her main effect.
+
+For your convenience, here's the caption for Table 4.3:
+
+> Table 4.3: Clusters associated with cashing out - inflating the balloon on
+> the BART.
+
+Do you think Cohen has applied her contrast to the group mean regressor (1, 0)
+or to the number of pumps regressor (0, 1)?
 
 If you are among the brave, you may be analyzing the ER and TD tasks.  Because
 you are brave, I know you will not want much help, but, try reading the
 cluster table descriptions for these contrasts.  See whether you can work out
 what contrasts Cohen has applied to her group model.
+
+Have a look at the `participants.tsv` file in this repository for some values
+you could use for the ER and TD higher-level regressors:
+
+https://github.com/matthew-brett/msc_imaging/blob/master/participants.tsv
 
 ## Why do I get an error when doing non-linear registration
 
