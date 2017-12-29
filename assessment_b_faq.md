@@ -80,7 +80,7 @@ You'll find this in the assessment document, quoting from Cohen's thesis:
 > amount of reported regulation (ER). Outlier deweighting was performed using
 > a mixture modeling approach (Woolrich, 2008).
 
-These are the specifications for the model at the second level.  At the second
+These are the specifications for the model at the group level.  At the group
 level, the rows in the model correspond to COPE scans, one per run.  The
 regressors in the section above therefore have one value per run.
 
