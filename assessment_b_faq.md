@@ -349,3 +349,37 @@ into your directory with the correct name.  For example:
 cd ~/replication
 ln -s data/ds000009_R2.0.3/sub-01/anat/sub-01_T1w.nii.gz my-data/sub-01/sub-01_T1.nii.gz
 ```
+
+## How did you create the event .txt files for SS and BART?
+
+There's a hint about this in the assessment document on Canvas.  The OpenFMRI
+data does not not come with the ``.txt` files giving the onset, duration and
+amplitude information for each event type.  I created these files from the
+overall event definition files for each task.
+
+For example, here are a listing of the first few ``.txt`` files for subject
+01:
+
+```
+sub-01/func/sub-01_task-balloonanalogrisktask_label-inflate.txt
+sub-01/func/sub-01_task-balloonanalogrisktask_label-beforeexplode.txt
+sub-01/func/sub-01_task-balloonanalogrisktask_label-cashout.txt
+sub-01/func/sub-01_task-balloonanalogrisktask_label-explode.txt
+```
+
+I used a Python script to generate these files from the source file:
+
+```
+sub-01/func/sub-01_task-balloonanalogrisktask_events.tsv
+```
+
+The script that I used to do this was:
+
+```
+https://github.com/matthew-brett/msc_imaging/blob/master/ds009_onsets.py
+```
+
+As you can see from that script, I had to write small algorithms to analyze
+the events, and select the ones corresponding to the individual trial types. I
+have defined this algorithm for the SS and BART tasks, but I haven't done this
+for the ER and TD tasks.  If you'd like help doing this, please let me know.
