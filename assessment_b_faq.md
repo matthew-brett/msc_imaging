@@ -322,10 +322,10 @@ you are brave, I know you will not want much help, but, try reading the
 cluster table descriptions for these contrasts.  See whether you can work out
 what contrasts Cohen has applied to her group model.
 
-Have a look at the `participants.tsv` file in this repository for some values
-you could use for the ER and TD higher-level regressors:
+Have a look at the `ds009_participants.tsv` file in this repository for some
+values you could use for the ER and TD higher-level regressors:
 
-https://github.com/matthew-brett/msc_imaging/blob/master/participants.tsv
+https://github.com/matthew-brett/msc_imaging/blob/master/ds009_participants.tsv
 
 ## Why do I get an error when doing non-linear registration
 
