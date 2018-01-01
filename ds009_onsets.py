@@ -1,10 +1,23 @@
-""" Utilties for working with ds009 onsets
+""" Utilties for writing ds009 3-column event files.
+
+Run with something like:
+
+    python ds009_onsets.py ds000009_R2.0.3 event_file_dir
+
+where "ds000009_R2.0.3" is the path containing the subject directories, such as
+"sub-01" and "event_file_dir" is a directory in which to write the new .txt
+event files.
 """
 from __future__ import print_function
+"""
+See check_ds009_onsets.py for tests
+"""
 
+import sys
 from glob import glob
+from os import mkdir
+from os.path import join as pjoin, split as psplit, isdir, dirname, exists
 
-from os.path import join as pjoin, split as psplit, isdir, dirname
 import numpy as np
 
 import pandas as pd
@@ -58,21 +71,29 @@ TASK_DEFS = dict(
                                preprocessor=bart_preprocessor,
                                conditions= ['inflate', 'beforeexplode',
                                             'cashout', 'explode'],
+                               ok = True,  # Set False to disable processing
                                ),
     stopsignal=dict(old_no=2,
                     preprocessor=ss_preprocessor,
                     conditions=['gocorrect', 'stopcorrect',
-                                'stopincorrect', 'goincorrect']
+                                'stopincorrect', 'goincorrect'],
+                    ok = True,  # Set False to disable processing
                     ),
     emotionalregulation=dict(old_no=3,
                              preprocessor=None,
                              conditions=[],
+                             ok = False,  # Set True to enable processing
                              ),
     discounting=dict(old_no=4,
                      preprocessor=None,
                      conditions=[],
+                     ok = False,  # Set True to enable processing
                      )
 )
+
+# Throw away incomplete TASK_DEFS (where field 'ok' is True).
+TASK_DEFS = {name: task_def for name, task_def in TASK_DEFS.items()
+             if task_def.get('ok')}
 
 
 def parse_tsv_name(tsv_path):
@@ -100,73 +121,77 @@ def three_column(df, name):
 
 def tsv2events(tsv_path):
     sub_no, task_name, run_no = parse_tsv_name(tsv_path)
-    info = TASK_DEFS[task_name]
-    if len(info['conditions']) == 0:
+    if task_name not in TASK_DEFS:  # Task not properly defined
         return {}
+    info = TASK_DEFS[task_name]
     df = pd.read_table(tsv_path)
     if info['preprocessor']:
         df = info['preprocessor'](df)
     return {name: three_column(df, name) for name in info['conditions']}
 
 
-def write_task(tsv_path):
+def write_task(tsv_path, out_path=None):
+    """ Write .txt event files for .tsv event definitions
+
+    Parameters
+    ----------
+    tsv_path : str
+        Path to .tsv file.
+    out_path : None or str
+        If str, directory to write output .txt files.  If None, use directory
+        containing the .tsv file in `tsv_path`.
+    """
     sub_no, task_name, run_no = parse_tsv_name(tsv_path)
     events = tsv2events(tsv_path)
     if len(events) == 0:
         return
-    path, fname = psplit(tsv_path)
+    tsv_dir, fname = psplit(tsv_path)
+    path = tsv_dir if out_path is None else out_path
     run_part = '' if run_no is None else '_run-%02d' % run_no
     fname_prefix = pjoin(
         path,
         'sub-%02d_task-%s%s_label-' % (sub_no, task_name, run_part))
     for name in events:
         new_fname = fname_prefix + name + '.txt'
-        print('Writing', tsv_path, 'to', new_fname)
+        print('Writing from', tsv_path, 'to', new_fname)
         oda = events[name]
         if len(oda):
             np.savetxt(new_fname, oda, '%f', '\t')
 
 
-def write_all_tasks(start_path):
+def write_all_tasks(start_path, out_path=None):
+    """ Write .txt event files for all tasks with defined processing.
+
+    Parameters
+    ----------
+    start_path : str
+        Path containing subject directories such as ``sub-01`` etc.
+    out_path : None or str
+        If str, directory to write output .txt files.  If None, use directory
+        containing the .tsv file, found by searching in `start_path`.
+    """
     for tsv_path in glob(pjoin(start_path,
                                'sub-*',
                                'func',
                                'sub*tsv')):
-        write_task(tsv_path)
+        write_task(tsv_path, out_path)
 
 
-def test_parse_tsv_name():
-    assert (parse_tsv_name(
-        'sub-01_task-stopsignal_run-01_events.tsv') ==
-        (1, 'stopsignal', 1))
-    assert (parse_tsv_name(
-        pjoin('foo', 'bar', 'sub-01_task-stopsignal_run-01_events.tsv')) ==
-        (1, 'stopsignal', 1))
-    assert (parse_tsv_name(
-        'sub-13_task-balloonanalogrisktask_events.tsv') ==
-        (13, 'balloonanalogrisktask', None))
-    assert (parse_tsv_name('sub-09_task-stopsignal_run-02_events.tsv') ==
-            (9, 'stopsignal', 2))
+def main():
+    if len(sys.argv) > 1:
+        start_path = sys.argv[1]
+    else:
+        print(__doc__)
+        raise RuntimeError("Pass start path on command line")
+    if len(sys.argv) > 2:
+        out_path = sys.argv[2]
+        if not exists(out_path):
+            mkdir(out_path)
+    else:
+        out_path = None
+    write_all_tasks(start_path, out_path)
 
 
-def test_three_column():
-    if NEW_COND_PATH is None:
-        return
-    cond_file = pjoin(NEW_COND_PATH, 'sub-09', 'func',
-                      'sub-09_task-stopsignal_run-02_events.tsv')
-    df = pd.read_table(cond_file)
-    info = TASK_DEFS['stopsignal']
-    df = info['preprocessor'](df)
-    oda = three_column(df, 'gocorrect')
-    assert oda.shape == (96, 3)
-
-
-def test_tsv2events():
-    if NEW_COND_PATH is None:
-        return
-    cond_file = pjoin(NEW_COND_PATH, 'sub-09', 'func',
-                      'sub-09_task-stopsignal_run-02_events.tsv')
-    events = tsv2events(cond_file)
-    assert len(events) == 4
-    assert sorted(events) == ['gocorrect', 'goincorrect', 'stopcorrect',
-                              'stopincorrect']
+if __name__ == '__main__':
+    # This run if Python file executed as a script
+    main()

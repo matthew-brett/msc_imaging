@@ -2,11 +2,14 @@
 """
 from os.path import join as pjoin, exists, dirname, split as psplit
 from glob import glob
+from tempfile import mkdtemp
+from shutil import rmtree
 
 import numpy as np
 import pandas as pd
 
-from ds009_onsets import TASK_DEFS, parse_tsv_name, tsv2events, NEW_COND_PATH
+from ds009_onsets import (TASK_DEFS, parse_tsv_name, tsv2events, NEW_COND_PATH,
+                          three_column, write_all_tasks)
 
 OLD_COND_PATH = pjoin(dirname(__file__), 'old_onsets')
 
@@ -89,6 +92,21 @@ def difference_report(rounded_onsets, data_frame):
         print(filtered)
 
 
+def test_parse_tsv_name():
+    assert (parse_tsv_name(
+        'sub-01_task-stopsignal_run-01_events.tsv') ==
+        (1, 'stopsignal', 1))
+    assert (parse_tsv_name(
+        pjoin('foo', 'bar', 'sub-01_task-stopsignal_run-01_events.tsv')) ==
+        (1, 'stopsignal', 1))
+    assert (parse_tsv_name(
+        'sub-13_task-balloonanalogrisktask_events.tsv') ==
+        (13, 'balloonanalogrisktask', None))
+    assert (parse_tsv_name('sub-09_task-stopsignal_run-02_events.tsv') ==
+            (9, 'stopsignal', 2))
+
+
+
 def test_stopsignal():
     for tsv_path in glob(pjoin(NEW_COND_PATH,
                                'sub-*',
@@ -101,3 +119,47 @@ def test_older_cond_filenames():
     assert older_cond_filenames(1, 'stopsignal', 1) == [
         pjoin('sub001', 'model', 'model001', 'onsets', 'task002_run001',
               'cond%03d.txt' % j) for j in range(1, 5)]
+
+
+def test_three_column():
+    if NEW_COND_PATH is None:
+        return
+    cond_file = pjoin(NEW_COND_PATH, 'sub-09', 'func',
+                      'sub-09_task-stopsignal_run-02_events.tsv')
+    df = pd.read_table(cond_file)
+    info = TASK_DEFS['stopsignal']
+    df = info['preprocessor'](df)
+    oda = three_column(df, 'gocorrect')
+    assert oda.shape == (96, 3)
+
+
+def test_tsv2events():
+    if NEW_COND_PATH is None:
+        return
+    cond_file = pjoin(NEW_COND_PATH, 'sub-09', 'func',
+                      'sub-09_task-stopsignal_run-02_events.tsv')
+    events = tsv2events(cond_file)
+    assert len(events) == 4
+    assert sorted(events) == ['gocorrect', 'goincorrect', 'stopcorrect',
+                              'stopincorrect']
+
+
+def test_write_all_tasks():
+    if NEW_COND_PATH is None:
+        return
+    # Make a temporary directory
+    out_dir = mkdtemp()
+    try:
+        # Write all the files again
+        write_all_tasks(NEW_COND_PATH, out_dir)
+        # Check they are the same as the original run
+        for path in glob(pjoin(NEW_COND_PATH, 'sub-*', 'func', '*.txt')):
+            _, fname = psplit(path)
+            made_path = pjoin(out_dir, fname)
+            with open(path, 'rt') as fobj:
+                original_contents = fobj.read()
+            with open(made_path, 'rt') as fobj:
+                made_contents = fobj.read()
+            assert original_contents == made_contents
+    finally:
+        rmtree(out_dir)
