@@ -2,21 +2,27 @@
 
 Run with something like:
 
-    python ds009_onsets.py ds000009_R2.0.3 event_file_dir
+    python ds009_onsets.py ds000009_R2.0.3 event_file_dir stopsignal
 
 where "ds000009_R2.0.3" is the path containing the subject directories, such as
-"sub-01" and "event_file_dir" is a directory in which to write the new .txt
-event files.
+"sub-01", "event_file_dir" is a directory in which to write the new .txt event
+files, and "stopsignal" is the name of an event.
+
+Try:
+
+    python ds009_onsets.py --help
+
+for more information.
 """
 from __future__ import print_function
 """
-See check_ds009_onsets.py for tests
+See check_ds009_onsets.py for tests.
 """
 
-import sys
 from glob import glob
 from os import mkdir
 from os.path import join as pjoin, split as psplit, isdir, dirname, exists
+from argparse import ArgumentParser
 
 import numpy as np
 
@@ -91,13 +97,28 @@ TASK_DEFS = dict(
                      )
 )
 
-# Throw away incomplete TASK_DEFS (where field 'ok' is True).
+# Throw away incomplete TASK_DEFS (where field 'ok' is not True).
 TASK_DEFS = {name: task_def for name, task_def in TASK_DEFS.items()
              if task_def.get('ok')}
 
 
 def parse_tsv_name(tsv_path):
     """ Parse tsv file name, return subject no, task name, run_no
+
+    Parameters
+    ----------
+    tsv_path : str
+        .tsv filename.
+
+    Returns
+    -------
+    subject_no : str
+        E.g. "sub-12"
+    task_name : str
+        E.g. "stopsignal"
+    run_no : None or int
+        None if no run number specified, otherwise a 1-based integer giving the
+        run number, where 1 is the first run.
     """
     path, fname = psplit(tsv_path)
     parts = fname.split('_')
@@ -115,11 +136,15 @@ def parse_tsv_name(tsv_path):
 
 
 def three_column(df, name):
+    """ Return 3-column onset, duration, amplitude data frame for event `name`
+    """
     ons_dur_amp = df[df['trial_type'] == name]
     return ons_dur_amp[['onset', 'duration', 'amplitude']].values
 
 
 def tsv2events(tsv_path):
+    """ Return dictionary of 3-column event dataframes from `tsv_path`
+    """
     sub_no, task_name, run_no = parse_tsv_name(tsv_path)
     if task_name not in TASK_DEFS:  # Task not properly defined
         return {}
@@ -159,39 +184,55 @@ def write_task(tsv_path, out_path=None):
             np.savetxt(new_fname, oda, '%f', '\t')
 
 
-def write_all_tasks(start_path, out_path=None):
+def write_all_tasks(start_path, out_path=None, event_names='all'):
     """ Write .txt event files for all tasks with defined processing.
 
     Parameters
     ----------
     start_path : str
         Path containing subject directories such as ``sub-01`` etc.
-    out_path : None or str
+    out_path : None or str, optional
         If str, directory to write output .txt files.  If None, use directory
         containing the .tsv file, found by searching in `start_path`.
+    event_names : list or "all", optional
+        List of event names to process.  If string "all", process all known
+        event names.
     """
+    event_names = list(TASK_DEFS) if event_names == 'all' else event_names
+    strange_events = set(event_names).difference(TASK_DEFS)
+    if len(strange_events):
+        raise ValueError("One or more event names without processors: " +
+                           ', '.join(strange_events))
     for tsv_path in glob(pjoin(start_path,
                                'sub-*',
                                'func',
                                'sub*tsv')):
-        write_task(tsv_path, out_path)
+        sub_no, task_name, run_no = parse_tsv_name(tsv_path)
+        if task_name in event_names:
+            write_task(tsv_path, out_path)
 
 
 def main():
-    if len(sys.argv) > 1:
-        start_path = sys.argv[1]
-    else:
-        print(__doc__)
-        raise RuntimeError("Pass start path on command line")
-    if len(sys.argv) > 2:
-        out_path = sys.argv[2]
-        if not exists(out_path):
-            mkdir(out_path)
-    else:
-        out_path = None
-    write_all_tasks(start_path, out_path)
+    # Process the command-line arguments to the script.
+    parser = ArgumentParser(description="Write event files for ds009")
+    parser.add_argument('data_dir',
+                        help='Directory containing subject directories')
+    parser.add_argument('out_dir', default=None, nargs='?',
+                        help='Directory in which to write event files '
+                        '(default is to write to same directory as .tsv file)')
+    parser.add_argument('event_name', default='all', nargs='*',
+                        help='Name(s) of events to write (can have more than '
+                        'one, separated by spaces)')
+    args = parser.parse_args()
+    # Create the output directory if it does not exist.
+    if args.out_dir is not None and not exists(args.out_dir):
+        mkdir(args.out_dir)
+    # Write the files
+    write_all_tasks(args.data_dir, args.out_dir, args.event_name)
 
 
 if __name__ == '__main__':
-    # This run if Python file executed as a script
+    # This code gets run if this Python file gets executed as a script.
+    # It does not get run if the file is just imported.
+    # https://stackoverflow.com/a/419185
     main()

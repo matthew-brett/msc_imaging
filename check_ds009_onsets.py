@@ -1,5 +1,14 @@
 """ Check against older event files
+
+Run tests with:
+
+    py.test check_ds009_onsets.py
+
+You need to install pytest first. At the terminal:
+
+    pip install pytest
 """
+from os import unlink as remove
 from os.path import join as pjoin, exists, dirname, split as psplit
 from glob import glob
 from tempfile import mkdtemp
@@ -10,6 +19,8 @@ import pandas as pd
 
 from ds009_onsets import (TASK_DEFS, parse_tsv_name, tsv2events, NEW_COND_PATH,
                           three_column, write_all_tasks)
+
+import pytest
 
 OLD_COND_PATH = pjoin(dirname(__file__), 'old_onsets')
 
@@ -106,7 +117,6 @@ def test_parse_tsv_name():
             (9, 'stopsignal', 2))
 
 
-
 def test_stopsignal():
     for tsv_path in glob(pjoin(NEW_COND_PATH,
                                'sub-*',
@@ -150,16 +160,32 @@ def test_write_all_tasks():
     # Make a temporary directory
     out_dir = mkdtemp()
     try:
-        # Write all the files again
-        write_all_tasks(NEW_COND_PATH, out_dir)
-        # Check they are the same as the original run
-        for path in glob(pjoin(NEW_COND_PATH, 'sub-*', 'func', '*.txt')):
-            _, fname = psplit(path)
-            made_path = pjoin(out_dir, fname)
-            with open(path, 'rt') as fobj:
-                original_contents = fobj.read()
-            with open(made_path, 'rt') as fobj:
-                made_contents = fobj.read()
-            assert original_contents == made_contents
+        for to_write in (['stopsignal'], 'all'):
+            # Write the files again
+            write_all_tasks(NEW_COND_PATH, out_dir, to_write)
+            # Check they are the same as the original run, or missing.
+            for path in glob(pjoin(NEW_COND_PATH, 'sub-*', 'func', '*.txt')):
+                _, fname = psplit(path)
+                made_path = pjoin(out_dir, fname)
+                sub_no, task_name, run_no = parse_tsv_name(path)
+                if to_write != 'all' and task_name not in to_write:
+                    assert not exists(made_path)
+                continue
+                with open(path, 'rt') as fobj:
+                    original_contents = fobj.read()
+                with open(made_path, 'rt') as fobj:
+                    made_contents = fobj.read()
+                assert original_contents == made_contents
+                remove(made_path)
     finally:
         rmtree(out_dir)
+
+
+def test_write_all_events():
+    # Check write_all_tasks gives error for not-known tasks.
+    if NEW_COND_PATH is None:
+        return
+    with pytest.raises(ValueError) as e_info:
+        write_all_tasks(NEW_COND_PATH, 'tmp', ['foo'])
+    with pytest.raises(ValueError) as e_info:
+        write_all_tasks(NEW_COND_PATH, 'tmp', ['stopsignal', 'foo'])
