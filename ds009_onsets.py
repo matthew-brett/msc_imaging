@@ -72,6 +72,47 @@ def ss_preprocessor(df):
     return pd.concat([trial_type, onset, duration, amplitude], axis=1)
 
 
+# Code goes from button number to value on rating scale.  Reverse engineered
+# from the original rating_par_orig field.
+ER_RESPONSE_MAP = {'114': 4, '103': 3, '121': 2, '98': 1, '0': 0,
+                   'n/a': np.nan}
+
+def er_preprocessor(df):
+    """ Process dataframe for ER trial types """
+    onset, duration, trial_type, image_type, response, rt = [
+        df[name].copy() for name in
+        ['onset', 'duration', 'trial_type', 'image_type',
+         'response', 'reaction_time']]
+    # Recode the response values using the map above.
+    response = response.map(ER_RESPONSE_MAP)
+    tt = trial_type.copy()  # A pandas series
+    tt[(trial_type == 'attend') & (image_type == 'negative')] = 'attendneg'
+    tt[(trial_type == 'attend') & (image_type == 'neutral')] = 'attendneu'
+    tt[(trial_type == 'suppress') & (image_type == 'negative')] = 'suppressneg'
+    assert not any((trial_type == 'suppress') & (image_type == 'neutral'))
+    tt[(trial_type == "rate") & (response == 0)] = 'ratemiss'
+    tt[(trial_type == "rate") & (response != 0)] = 'rate'
+    # Use RTs as durations for rate
+    good_rates = tt == 'rate'
+    # Foo
+    duration[good_rates] = pd.to_numeric(rt[good_rates])
+    # Make main set of events (excluding parametric regressor)
+    amplitude = pd.Series(np.ones(len(df)), name='amplitude')
+    main_trials = pd.concat([tt, onset, duration, amplitude], axis=1)
+    # Add parametric trial type
+    good_onsets = onset[good_rates]
+    good_durations = duration[good_rates]
+    good_responses = response[good_rates]
+    amp_extra = good_responses - np.mean(good_responses)
+    amp_extra.name = 'amplitude'
+    tt_extra = tt[good_rates]
+    tt_extra[:] = 'ratepar'
+    # Put the new trials at the end
+    extra = pd.concat([tt_extra, good_onsets, good_durations, amp_extra],
+                      axis=1)
+    return pd.concat([main_trials, extra], axis=0, ignore_index=True)
+
+
 TASK_DEFS = dict(
     balloonanalogrisktask=dict(old_no=1,
                                preprocessor=bart_preprocessor,
@@ -86,9 +127,14 @@ TASK_DEFS = dict(
                     ok = True,  # Set False to disable processing
                     ),
     emotionalregulation=dict(old_no=3,
-                             preprocessor=None,
-                             conditions=[],
-                             ok = False,  # Set True to enable processing
+                             preprocessor=er_preprocessor,
+                             conditions=['attendneg', 'attendneu',
+                                         'rate',
+                                         'ratepar',
+                                         'suppressneg',
+                                         'ratemiss',
+                                        ],
+                             ok = True,  # Set True to enable processing
                              ),
     discounting=dict(old_no=4,
                      preprocessor=None,
@@ -178,9 +224,9 @@ def write_task(tsv_path, out_path=None):
         'sub-%02d_task-%s%s_label-' % (sub_no, task_name, run_part))
     for name in events:
         new_fname = fname_prefix + name + '.txt'
-        print('Writing from', tsv_path, 'to', new_fname)
         oda = events[name]
         if len(oda):
+            print('Writing from', tsv_path, 'to', new_fname)
             np.savetxt(new_fname, oda, '%f', '\t')
 
 

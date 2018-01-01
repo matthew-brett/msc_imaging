@@ -40,16 +40,17 @@ def older_cond_filenames(sub_no, task_name, run_no, model_no=1):
     return filenames
 
 
-def check_stopsignal(tsv_path, old_path):
+def check_task(tsv_path, old_path, fail=False):
     path, fname = psplit(tsv_path)
     sub_no, task_name, run_no = parse_tsv_name(tsv_path)
+    run_part = '_run-%02d' % run_no if run_no is not None else ''
     cond_fnames = older_cond_filenames(sub_no, task_name, run_no)
     orig_df = pd.read_table(tsv_path)
     events = tsv2events(tsv_path)
     new_cond_prefix = pjoin(
-        path, 'sub-%02d_task-stopsignal_run-%02d_label-' %
-        (sub_no, run_no))
-    for i, name in enumerate(TASK_DEFS['stopsignal']['conditions']):
+        path, 'sub-%02d_task-%s%s_label-' %
+        (sub_no, task_name, run_part))
+    for i, name in enumerate(TASK_DEFS[task_name]['conditions']):
         ons_dur_amp = events[name]
         # Check new event file
         new_cond_fname = new_cond_prefix + name + '.txt'
@@ -69,9 +70,14 @@ def check_stopsignal(tsv_path, old_path):
         if len(ons_dur_amp) != len(old_events):
             print(msg)
             print_disjoint_events(ons_dur_amp, old_events, orig_df)
+            if fail:
+                assert False
         elif not np.allclose(ons_dur_amp, old_events, atol=1e-4):
             print(msg)
-            print('onsets do not match to given precision')
+            print('onsets / durations / amplitudes do not match '
+                  'to given precision')
+            if fail:
+                assert False
 
 
 def print_disjoint_events(new, old, data_frame):
@@ -121,8 +127,16 @@ def test_stopsignal():
     for tsv_path in glob(pjoin(NEW_COND_PATH,
                                'sub-*',
                                'func',
-                               'sub*stopsignal*tsv')):
-        check_stopsignal(tsv_path, OLD_COND_PATH)
+                               'sub*stopsignal*.tsv')):
+        check_task(tsv_path, OLD_COND_PATH)
+
+
+def test_er():
+    for tsv_path in glob(pjoin(NEW_COND_PATH,
+                               'sub-*',
+                               'func',
+                               'sub*emotionalregulation*.tsv')):
+        check_task(tsv_path, OLD_COND_PATH, fail=False)
 
 
 def test_older_cond_filenames():
