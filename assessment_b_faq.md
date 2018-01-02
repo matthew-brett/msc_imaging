@@ -327,6 +327,9 @@ values you could use for the ER and TD higher-level regressors:
 
 https://github.com/matthew-brett/msc_imaging/blob/master/ds009_participants.tsv
 
+The .tsv file is just a text file - if you don't want to open it as I do (see
+the notebooks I've pointed to below) - then you can open it in Excel.
+
 ## Why do I get an error when doing non-linear registration
 
 Some of you have found that you get an error when you try to do non-linear
@@ -396,6 +399,19 @@ The short answer is (for now):
 
 <!-- make er-files -->
 <!-- make td-files -->
+
+If you are logged into the cluster, you can fetch the zip file directly with
+(e.g.):
+
+```
+wget https://github.com/matthew-brett/msc_imaging/raw/master/er_files.zip
+```
+
+Then unzip with (e.g):
+
+```
+unzip er_files.zip
+```
 
 The long answer is about how I made those files, and how you might make or
 modify those files yourself.
