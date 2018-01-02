@@ -1,6 +1,6 @@
 # Frequently asked questions for Assessment B
 
-Feel free to proposed edits or new questions for this FAQ.
+Feel free to propose edits or new questions for this FAQ.
 
 You can do that by email to m.brett@bham.ac.uk, or for cool points, use the
 pen icon at the top right of the page to make and propose your edits.  You'll
@@ -440,14 +440,20 @@ Here's the equivalent file for TD:
 
 https://github.com/matthew-brett/msc_imaging/blob/master/on_td.ipynb
 
-Then you need to fill in or modify an algorithm for the ER and TD tasks,
-corresponding to the algorithm for - say - the SS task here:
+Then you need to modify the algorithm for the ER and TD tasks. For example,
+here the algorithm for the ER task:
 
-https://github.com/matthew-brett/msc_imaging/blob/master/ds009_onsets.py#L39
+https://github.com/matthew-brett/msc_imaging/blob/master/ds009_onsets.py#L80
 
-Finally, you need to fill or modify the `preprocessor` and `conditions` fields
-in the `TASK_DEFS` definition in that file, set the `ok` field to `True`, and
-run the `write_all_tasks` function in that file with something like:
+Finally, you might consider changing the `preprocessor` and `conditions`
+fields in the `TASK_DEFS` definition in that file.
+
+To run that file, see below.
+
+## Running the Python scripts to generate the .txt files
+
+You can run the `write_all_tasks` function in the `ds009_onsets.py` file, with
+something like:
 
 ```
 python ds009_onsets.py replication/data/ds000009_R2.0.3 out_dir
@@ -457,14 +463,12 @@ where `replication/data/ds000009_R2.0.3` is the path to the data, and
 `out_dir` is the directory into which the script will write the new `.txt`
 files.
 
-## Running the Python scripts to generate the .txt files
-
 You only need to do this if you want to modify or understand what I have done
 to generate the .txt files.
 
 Be careful, the scripts I have written do not work on the PBIC cluster.  The
 PBIC cluster has a very old version of Python.  What I do, and what I
-recommend you do, is run these scripts on your laptop.  I recommend:
+recommend you do, is run these scripts on your laptop.  I recommend that you:
 
 * Make sure you have Anaconda installed : https://www.anaconda.com/download
 * (re-) Download the msc_imaging archive from
@@ -479,5 +483,5 @@ recommend you do, is run these scripts on your laptop.  I recommend:
     ```
 
 You might also consider opening up the notebook files, maybe by opening the
-Anaconcda Navigator, opening the Jupyter Notebook, nagivating to the folder
+Anaconda Navigator, opening the Jupyter Notebook, nagivating to the folder
 containing the unzipped files, and opening (e.g.) `on_er.ipynb`.
