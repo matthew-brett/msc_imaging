@@ -113,6 +113,53 @@ def er_preprocessor(df):
     return pd.concat([main_trials, extra], axis=0, ignore_index=True)
 
 
+TD_RESPONSE_MAP = {'b': 0, 'y': 1, 'n/a': np.nan}
+
+def td_preprocessor(df):
+    """ Process dataframe for TD trial types """
+    onset_new, duration_orig, trial_type, delay, response, rt, onset_orig = [
+        df[name].copy() for name in
+        ['onset', 'duration', 'trial_type',
+         'delay_time_days',
+         'response_button',
+         'reaction_time',
+         'onset_orig']]
+    # onset_orig has more decimal places, use that instead.  Rounding might in
+    # fact be truncation, hence the 0.1 slippage here.
+    assert np.max(np.abs(onset_new - onset_orig.round(2))) <= 0.1
+    onset_orig.name = 'onset'
+    # Use reaction times for duration, for most trials
+    rt.name = 'duration'
+    # Make responses into numbers
+    response = response.map(TD_RESPONSE_MAP)
+    tt = trial_type.copy()
+    # Use reaction time for duration
+    tt[trial_type == 'easy_par'] = 'easy'
+    tt[trial_type == 'hard_par'] = 'hard'
+    is_missed = response.isnull()
+    tt[is_missed] = 'missed'
+    # Use original duration (not RT) for missed trials
+    rt[is_missed] = duration_orig[is_missed]
+    amplitude = pd.Series(np.ones(len(df)), name='amplitude')
+    main_trials = pd.concat([tt, onset_orig, rt, amplitude], axis=1)
+    # Add parametric trial types
+    extras = []
+    for t_type in ('easy', 'hard'):
+        trial_selector = tt == t_type
+        amp_extra = delay[trial_selector].copy()
+        amp_extra = amp_extra - amp_extra.mean()
+        amp_extra.name = 'amplitude'
+        tt_extra = tt[trial_selector].copy()
+        tt_extra[:] = t_type + 'par'
+        extras.append(pd.concat([tt_extra,
+                                 onset_orig[trial_selector],
+                                 rt[trial_selector],
+                                 amp_extra],
+                                axis=1))
+    # Put the new trials at the end
+    return pd.concat([main_trials] + extras, axis=0, ignore_index=True)
+
+
 TASK_DEFS = dict(
     balloonanalogrisktask=dict(old_no=1,
                                preprocessor=bart_preprocessor,
@@ -134,12 +181,13 @@ TASK_DEFS = dict(
                                          'suppressneg',
                                          'ratemiss',
                                         ],
-                             ok = True,  # Set True to enable processing
+                             ok = True,  # Set False to disable processing
                              ),
     discounting=dict(old_no=4,
-                     preprocessor=None,
-                     conditions=[],
-                     ok = False,  # Set True to enable processing
+                     preprocessor=td_preprocessor,
+                     conditions=['easy', 'easypar', 'hard', 'hardpar',
+                                 'missed'],
+                     ok = True,  # Set True to disable processing
                      )
 )
 

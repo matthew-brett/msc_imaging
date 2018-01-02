@@ -40,7 +40,7 @@ def older_cond_filenames(sub_no, task_name, run_no, model_no=1):
     return filenames
 
 
-def check_task(tsv_path, old_path, fail=False):
+def check_task(tsv_path, old_path, fail=False, onset_field='onset'):
     path, fname = psplit(tsv_path)
     sub_no, task_name, run_no = parse_tsv_name(tsv_path)
     run_part = '_run-%02d' % run_no if run_no is not None else ''
@@ -69,7 +69,8 @@ def check_task(tsv_path, old_path, fail=False):
             sub_no, run_part, name, (i + 1))
         if len(ons_dur_amp) != len(old_events):
             print(msg)
-            print_disjoint_events(ons_dur_amp, old_events, orig_df)
+            print_disjoint_events(ons_dur_amp, old_events, orig_df,
+                                  onset_field)
             if fail:
                 assert False
         elif not np.allclose(ons_dur_amp, old_events, atol=1e-4):
@@ -80,15 +81,15 @@ def check_task(tsv_path, old_path, fail=False):
                 assert False
 
 
-def print_disjoint_events(new, old, data_frame):
+def print_disjoint_events(new, old, data_frame, onset_field='onset'):
     new_not_old = ons_difference(new, old)
     if new_not_old:
         print('Events in new not old')
-        print(difference_report(new_not_old, data_frame))
+        print(difference_report(new_not_old, data_frame, onset_field))
     old_not_new = ons_difference(old, new)
     if old_not_new:
         print('Events in old not new')
-        print(difference_report(old_not_new, data_frame))
+        print(difference_report(old_not_new, data_frame, onset_field))
 
 
 def ons_difference(first, second):
@@ -100,10 +101,10 @@ def ons_difference(first, second):
     return difference
 
 
-def difference_report(rounded_onsets, data_frame):
+def difference_report(rounded_onsets, data_frame, onset_field='onset'):
     for onset in rounded_onsets:
         filtered = data_frame[
-            np.isclose(data_frame['onset'], onset, atol=1e-4)
+            np.isclose(data_frame[onset_field], onset, atol=1e-4)
                       ]
         assert len(filtered) == 1
         print(filtered)
@@ -137,6 +138,15 @@ def test_er():
                                'func',
                                'sub*emotionalregulation*.tsv')):
         check_task(tsv_path, OLD_COND_PATH, fail=False)
+
+
+def test_td():
+    for tsv_path in glob(pjoin(NEW_COND_PATH,
+                               'sub-*',
+                               'func',
+                               'sub*discounting*.tsv')):
+        check_task(tsv_path, OLD_COND_PATH, fail=False,
+                   onset_field='onset_orig')
 
 
 def test_older_cond_filenames():

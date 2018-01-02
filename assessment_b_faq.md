@@ -393,7 +393,7 @@ The short answer is (for now):
 
     https://github.com/matthew-brett/msc_imaging/blob/master/er_files.zip
 
-  * the TD files will soon be here:
+  * the TD files are here:
 
     https://github.com/matthew-brett/msc_imaging/blob/master/td_files.zip
 
