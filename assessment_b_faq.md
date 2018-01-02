@@ -436,6 +436,10 @@ regressors:
 
 https://github.com/matthew-brett/msc_imaging/blob/master/on_er.ipynb
 
+Here's the equivalent file for TD:
+
+https://github.com/matthew-brett/msc_imaging/blob/master/on_td.ipynb
+
 Then you need to fill in or modify an algorithm for the ER and TD tasks,
 corresponding to the algorithm for - say - the SS task here:
 
