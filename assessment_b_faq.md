@@ -375,11 +375,81 @@ sub-01/func/sub-01_task-balloonanalogrisktask_events.tsv
 
 The script that I used to do this was:
 
-```
 https://github.com/matthew-brett/msc_imaging/blob/master/ds009_onsets.py
-```
 
 As you can see from that script, I had to write small algorithms to analyze
 the events, and select the ones corresponding to the individual trial types. I
 have defined this algorithm for the SS and BART tasks, but I haven't done this
-for the ER and TD tasks.  If you'd like help doing this, please let me know.
+for the ER and TD tasks.
+
+## Where do I get the event files for the ER and TD tasks?
+
+The short answer is (for now):
+
+  * the ER files are here:
+
+    https://github.com/matthew-brett/msc_imaging/blob/master/er_files.zip
+
+  * the TD files will soon be here:
+
+    https://github.com/matthew-brett/msc_imaging/blob/master/td_files.zip
+
+<!-- make er-files -->
+<!-- make td-files -->
+
+The long answer is about how I made those files, and how you might make or
+modify those files yourself.
+
+The trick is to work out, from Cohen's thesis, how the events in (for example)
+the following files, correspond to the regressors Cohen describes in her
+thesis:
+
+```
+sub-01/func/sub-01_task-emotionalregulation_run-02_events.tsv
+sub-01/func/sub-01_task-discounting_events.tsv
+```
+
+Here's me exploring what the ER .tsv file fields mean, and how to get the
+regressors:
+
+https://github.com/matthew-brett/msc_imaging/blob/master/on_er.ipynb
+
+Then you need to fill in or modify an algorithm for the ER and TD tasks,
+corresponding to the algorithm for - say - the SS task here:
+
+https://github.com/matthew-brett/msc_imaging/blob/master/ds009_onsets.py#L39
+
+Finally, you need to fill or modify the `preprocessor` and `conditions` fields
+in the `TASK_DEFS` definition in that file, set the `ok` field to `True`, and
+run the `write_all_tasks` function in that file with something like:
+
+```
+python ds009_onsets.py replication/data/ds000009_R2.0.3 out_dir
+```
+
+where `replication/data/ds000009_R2.0.3` is the path to the data, and
+`out_dir` is the directory into which the script will write the new `.txt`
+files.
+
+## Running the Python scripts to generate the .txt files
+
+You only need to do this if you want to modify or understand what I have done
+to generate the .txt files.
+
+Be careful, the scripts I have written do not work on the PBIC cluster.  The
+PBIC cluster has a very old version of Python.  What I do, and what I
+recommend you do, is run these scripts on your laptop.  I recommend:
+
+* Make sure you have Anaconda installed : https://www.anaconda.com/download
+* (re-) Download the msc_imaging archive from
+  https://github.com/matthew-brett/msc_imaging/archive/master.zip and unzip
+  the files somewhere, say your desktop;
+* Open the Terminal (Windows: start Powershell; Mac: open Terminal.app);
+* Change directory to the directory containing the unzipped files;
+* Run the script as above to make sure it works.
+
+    python ds009_onsets.py replication/data/ds000009_R2.0.3 out_dir
+
+You might also consider opening up the notebook files, maybe by opening the
+Anaconcda Navigator, opening the Jupyter Notebook, nagivating to the folder
+containing the unzipped files, and opening (e.g.) `on_er.ipynb`.
