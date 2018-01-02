@@ -409,7 +409,13 @@ sub-01/func/sub-01_task-emotionalregulation_run-02_events.tsv
 sub-01/func/sub-01_task-discounting_events.tsv
 ```
 
-Here's me exploring what the ER .tsv file fields mean, and how to get the
+You can do this any way you like.  For example, you can download these files
+to your laptop, and open them in Excel.  They are just text files containing a
+spreadsheet, where the values are separated by tabs (Tab Separated Values =
+tsv).
+
+Excel would be horribly inefficient for the task of processing these values,
+so here's me exploring what the ER .tsv file fields mean, and how to get the
 regressors:
 
 https://github.com/matthew-brett/msc_imaging/blob/master/on_er.ipynb
@@ -448,7 +454,9 @@ recommend you do, is run these scripts on your laptop.  I recommend:
 * Change directory to the directory containing the unzipped files;
 * Run the script as above to make sure it works.
 
+    ```
     python ds009_onsets.py replication/data/ds000009_R2.0.3 out_dir
+    ```
 
 You might also consider opening up the notebook files, maybe by opening the
 Anaconcda Navigator, opening the Jupyter Notebook, nagivating to the folder
