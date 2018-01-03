@@ -521,3 +521,11 @@ recommend you do, is run these scripts on your laptop.  I recommend that you:
 You might also consider opening up the notebook files, maybe by opening the
 Anaconda Navigator, opening the Jupyter Notebook, nagivating to the folder
 containing the unzipped files, and opening (e.g.) `on_er.ipynb`.
+
+## Which images should I refer to in my report?
+
+In your output directory for each task, you will likely have image maps with
+names like `thresh_zstat1.nii.gz` and `rendered_thresh_zstat1.nii.gz`.  The
+`rendered` image is a special image optimized for display with FslEyes.
+Prefer the `thresh_zstat` image when you are choosing images to point to for
+your report.
