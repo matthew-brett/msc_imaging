@@ -375,11 +375,11 @@ ln -s data/ds000009_R2.0.3/sub-01/anat/sub-01_T1w.nii.gz my-data/sub-01/sub-01_T
 ## How did you create the event .txt files for SS and BART?
 
 There's a hint about this in the assessment document on Canvas.  The OpenFMRI
-data does not not come with the ``.txt` files giving the onset, duration and
+data does not not come with the `.txt` files giving the onset, duration and
 amplitude information for each event type.  I created these files from the
 overall event definition files for each task.
 
-For example, here are a listing of the first few ``.txt`` files for subject
+For example, here are a listing of the first few `.txt` files for subject
 01:
 
 ```
