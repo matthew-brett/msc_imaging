@@ -330,6 +330,19 @@ https://github.com/matthew-brett/msc_imaging/blob/master/ds009_participants.tsv
 The .tsv file is just a text file - if you don't want to open it as I do (see
 the notebooks I've pointed to below) - then you can open it in Excel.
 
+To help you, here are some guesses for the meaning of the column names in that
+.tsv file:
+
+* 'm_SSRTquant' : SSRT calculated using quantile method, during MRI runs;
+* 'b_SSRTquant' : SSRT calculated using quantile method, during behavioural
+  testing;
+* 'm_logit_k' : temporal discounting k value calculated with logistic
+  regression, from data in MRI runs;
+* 'm_AN-SN' : ratings of negativity of pictures for Attend Negative trials
+  minus ratings for Suppress Negative trials during MRI runs.
+
+See section 4.2.4 of Cohen's thesis for the details of the calculations.
+
 ## Why do I get an error when doing non-linear registration
 
 Some of you have found that you get an error when you try to do non-linear
@@ -396,6 +409,23 @@ The short answer is (for now):
   * the TD files are here:
 
     https://github.com/matthew-brett/msc_imaging/blob/master/td_files.zip
+
+Note that the ER and TD events I've given you here are not exactly as Cohen
+describes them.  Specifically, I have not given you:
+
+* the ER event for the instruction periods.  I think these were before each
+  trial, and you can make your own events for these if you like, by making an 
+  event file having events that start one second before the `attend` events,
+  and last one second, and a similar file for one second before the `suppress`
+  events, and I'll be impressed if you, but I'm also happy if you leave these
+  out.
+* the TD events for the remainder of each trial, after the subject has
+  reponded.  Again, you are welcome to make these yourself, but I'm also happy
+  if you leave them out.
+
+If you do want to make your own event files, feel free to futz with my Python
+code in the `ds009_onsets.py` file (see below), or load the `.tsv` files up in
+Matlab or Excel, to do the analysis.
 
 <!-- make er-files -->
 <!-- make td-files -->
