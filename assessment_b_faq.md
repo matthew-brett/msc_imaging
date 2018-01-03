@@ -343,6 +343,12 @@ To help you, here are some guesses for the meaning of the column names in that
 
 See section 4.2.4 of Cohen's thesis for the details of the calculations.
 
+You can subtract the mean from a set of numbers using any tool you like -
+Excel, Matlab, a calculator and a pen and paper.  This is how you'd do it in
+Python (see below for running Python / Pandas notebooks like this):
+
+https://github.com/matthew-brett/msc_imaging/blob/master/on_participants.ipynb
+
 ## Why do I get an error when doing non-linear registration
 
 Some of you have found that you get an error when you try to do non-linear
