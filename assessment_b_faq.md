@@ -609,7 +609,7 @@ matching voxel values of image 'pe1.nii.gz' and write the resulting voxel
 values to the image 'like_cope1.nii.gz'.
 
 Now, because of the way contrasts work, we're expecting "like_cope1.nii.gz" to
-be the same as "cope1.nii.gz" [^tds].  We can test this by first subtracting
+be the same as "cope1.nii.gz" [1].  We can test this by first subtracting
 `like_cope1.nii.gz` from `cope1.nii.gz`, and then using the `fslstats` command
 to show the result is very close to zero across all voxels.
 
@@ -629,6 +629,6 @@ $ fslinfo cope_minus_like -R
 The min / max of the values are have very small magnitude, so `cope1.nii.gz`
 and `like_cope1` have near identical values at every voxel.
 
-[^tds]: Remember, this is assuming you didn't add temporal derivatives - if
-  you did, you will have two `pe` files per EV, and you need to subtract `pe1`
-  from `pe5`.
+[1]: Remember, this is assuming you didn't add temporal derivatives - if you
+     did, you will have two `pe` files per EV, and you need to subtract `pe1`
+     from `pe5`.
