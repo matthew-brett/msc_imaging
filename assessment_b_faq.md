@@ -595,7 +595,7 @@ cope1.nii.gz
 
 My contrast subtracted `inflate` from `cashout`. From the order I entered my
 EVs, `pe1.nii.gz` corresponds to `inflate` and `pe3.nii.gz` corresponds to
-`cashout`.  So, I'm expecting that, if I take the voxel values in
+`cashout` [1].  So, I'm expecting that, if I take the voxel values in
 `pe3.nii.gz`, and subtract the matching voxel values in `pe1.nii.gz`, I'll get
 the same as the `cope1.nii.gz` image.  We can do this subtraction with
 `fslmaths`:
@@ -606,7 +606,7 @@ $ fslmaths pe3 -sub pe1 like_cope1
 
 This command means "take the voxel values of image 'pe3.nii.gz', subtract the
 matching voxel values of image 'pe1.nii.gz' and write the resulting voxel
-values to the image 'like_cope1.nii.gz'.
+values to the image 'like_cope1.nii.gz'".
 
 Now, because of the way contrasts work, we're expecting "like_cope1.nii.gz" to
 be the same as "cope1.nii.gz" [1].  We can test this by first subtracting
@@ -622,7 +622,7 @@ $ fslmaths cope1 -sub like_cope1 cope_minus_like
 Next we show min, max across all voxels of this difference image:
 
 ```
-$ fslinfo cope_minus_like -R
+$ fslstats cope_minus_like -R
 -0.000122 0.000122
 ```
 
@@ -630,5 +630,6 @@ The min / max of the values are have very small magnitude, so `cope1.nii.gz`
 and `like_cope1` have near identical values at every voxel.
 
 [1]: Remember, this is assuming you didn't add temporal derivatives - if you
-     did, you will have two `pe` files per EV, and you need to subtract `pe1`
-     from `pe5`.
+     did, you will have two `pe` files per EV, eight `pe` files in total, and
+     `pe5` is the parameter estimate corresponding to the main part of
+     `cashout`.
