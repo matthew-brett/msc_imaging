@@ -564,3 +564,71 @@ your report.
 
     This will copy the `README.docx` file to the `replication` directory on
     the server.  The server will ask for your password.
+
+## fslmaths
+
+You can use the command `fslmaths` to combine several images using simple
+mathamatical operations, that work on every voxel.
+
+For example, let's imagine you have done the first-level analysis for the BART
+task.  There were four conditions in that task, being `inflate, beforeexplode,
+cashout, explode`, and thefore four EVs.  Imagine that we didn't do anything
+fancy like add temporal derivatives. If we navigate to the `stats`
+subdirectory, we see that there are indeed four `pe` (Parameter Estimate)
+files in that directory:
+
+```
+$ cd sub-01/func/sub-01_task-balloonanalogrisktask_bold.feat/stats
+$ ls pe*.nii.gz
+pe1.nii.gz  pe2.nii.gz  pe3.nii.gz  pe4.nii.gz
+```
+
+I've also entered a contrast of `-1 0 1 0` which expresses "cashout -
+inflate".  That contrast will, at each voxel, subtract the parameter for
+`inflate` from the parameter for `cashout`.  Because I only did that contrast,
+I have one COPE file (Contrast Of Parameter Estimates):
+
+```
+$ ls cope*.nii.gz
+cope1.nii.gz
+```
+
+My contrast subtracted `inflate` from `cashout`. From the order I entered my
+EVs, `pe1.nii.gz` corresponds to `inflate` and `pe3.nii.gz` corresponds to
+`cashout`.  So, I'm expecting that, if I take the voxel values in
+`pe3.nii.gz`, and subtract the matching voxel values in `pe1.nii.gz`, I'll get
+the same as the `cope1.nii.gz` image.  We can do this subtraction with
+`fslmaths`:
+
+```
+$ fslmaths pe3 -sub pe1 like_cope1
+```
+
+This command means "take the voxel values of image 'pe3.nii.gz', subtract the
+matching voxel values of image 'pe1.nii.gz' and write the resulting voxel
+values to the image 'like_cope1.nii.gz'.
+
+Now, because of the way contrasts work, we're expecting "like_cope1.nii.gz" to
+be the same as "cope1.nii.gz" [^tds].  We can test this by first subtracting
+`like_cope1.nii.gz` from `cope1.nii.gz`, and then using the `fslstats` command
+to show the result is very close to zero across all voxels.
+
+First we subtract the images:
+
+```
+$ fslmaths cope1 -sub like_cope1 cope_minus_like
+```
+
+Next we show min, max across all voxels of this difference image:
+
+```
+$ fslinfo cope_minus_like -R
+-0.000122 0.000122
+```
+
+The min / max of the values are have very small magnitude, so `cope1.nii.gz`
+and `like_cope1` have near identical values at every voxel.
+
+[^tds]: Remember, this is assuming you didn't add temporal derivatives - if
+  you did, you will have two `pe` files per EV, and you need to subtract `pe1`
+  from `pe5`.
