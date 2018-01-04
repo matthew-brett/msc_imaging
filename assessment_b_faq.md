@@ -529,3 +529,36 @@ names like `thresh_zstat1.nii.gz` and `rendered_thresh_zstat1.nii.gz`.  The
 `rendered` image is a special image optimized for display with FslEyes.
 Prefer the `thresh_zstat` image when you are choosing images to point to for
 your report.
+
+## How do I copy my Word / other files from my laptop to the cluster?
+
+### On Windows
+
+  * Go to: https://winscp.net/eng/download.php
+  * Download and install the "Installation package".  Choose all the default
+    options.
+  * Start WinSCP and enter your details to log into the cluster, like this:
+
+    ![](images/winscp_login.png)
+
+    Obviously you'll need your own username, instead of mine, which is
+    `brettmz`.
+
+  * A new window with two panes will open.  The left hand pane refers to your
+    laptop, the right to the filesystem on the cluster.  Use the left pane to
+    navigate to the directory containing the file you want to upload, then
+    drag it to the `replication` directory in the right pane.
+
+### On Mac
+
+  * Open Terminal.app;
+  * Use `cd` to navigate to the directory containing the file you want to
+    upload, e.g. `cd ~/Documents`;
+  * Use `scp` to copy the file to the cluster - e.g.
+
+    ```
+    scp README.docx xxx@pbic.bham.ac.uk:replication
+    ```
+
+    This will copy the `README.docx` file to the `replication` directory on
+    the server.  The server will ask for your password.
