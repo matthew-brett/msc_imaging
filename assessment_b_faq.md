@@ -560,5 +560,7 @@ your report.
     scp README.docx xxx@pbic.bham.ac.uk:replication
     ```
 
+    where `xxx` is your username.
+
     This will copy the `README.docx` file to the `replication` directory on
     the server.  The server will ask for your password.
