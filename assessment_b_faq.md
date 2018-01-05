@@ -551,9 +551,17 @@ your report.
 
 ### On Mac
 
-  * Open Terminal.app;
+  * Open Terminal.app.  You now have a terminal running on your Mac.  Make
+    sure that you haven't accidentally picked up a Terminal.app session that
+    is already logged into the cluster, by typing `hostname`.  It should show
+    the name of your Mac, and not `pbic.bham.ac.uk`.
   * Use `cd` to navigate to the directory containing the file you want to
-    upload, e.g. `cd ~/Documents`;
+    upload.  For example, if you document was in the `Documents` folder in
+    your home directory, you could type `cd ~/Documents`.  If you're stuck
+    working out how to get to that directory, try opening a Finder window,
+    then navigate to the directory containing the file you want to transfer,
+    and drag the file to the Terminal window.  It's path (position on the file
+    system) should appear in the Terminal window.
   * Use `scp` to copy the file to the cluster - e.g.
 
     ```
