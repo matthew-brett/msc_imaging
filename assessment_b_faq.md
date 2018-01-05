@@ -641,3 +641,34 @@ and `like_cope1` have near identical values at every voxel.
      did, you will have two `pe` files per EV, eight `pe` files in total, and
      `pe5` is the parameter estimate corresponding to the main part of
      `cashout`.
+
+## Activation in both images
+
+Imagine you'd found an image for task A where the voxel values were 0 when the
+task had not activated, and greater than zero when they did activate.
+
+You have the same type of image for task B.
+
+You want to generate a new image, called Both.nii.gz, where the voxel values
+are not-zero for a voxel where there is activation in both task A *and* task
+B, but zero otherwise.
+
+Now imagine that there are only four voxels in each image.  In the following
+table, I imagine some voxel values for task A and task B, and the desired
+voxel value for the Both.nii.gz image:
+
+| Task A voxel | Task B voxel | Both voxel |
+|--------------|--------------|------------|
+| 0            | 0            | 0          |
+| 2.3          | 0            | 0          |
+| 0            | 3.1          | 0          |
+| 2.6          | 2.9          | 2.6        |
+
+The last Both voxel could be any non-zero value - 2.6 is just an example.
+
+For the extra marks question about the joint activation image one approach
+would be to see if you can find any images like the task A / task B images
+above, for SS and BART.  Then see if you can combine these images with a
+function from `fslmaths` (or some other way) so you get the outcome, at each
+voxel, like `Both.nii.gz` above.  It might be obvious that the function `add`
+isn't going to work for this.
