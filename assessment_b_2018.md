@@ -120,8 +120,8 @@ activated in these regions, across runs.  The point here was that, if there was 
 
 The results that you need to replicate are:
 
-*   Behavioral data analysis for the 1-back tasks, including d-prime scores and
-    reaction times (table 1 of the paper);
+*   (For extra marks) Behavioral data analysis for the 1-back tasks, including
+    d-prime scores and reaction times (table 1 of the paper);
 *   Group analysis whole brain activation map for OBJECTS - SCRAMBLED;
 *   Group analysis whole brain activation map for WORDS - REST;
 *   For each of (OBJECTS \- SCRAMBLED activation in lateral OTC) and (WORDS
@@ -224,6 +224,9 @@ ventral and lateral OFC voxels that are also in gray-matter.  Do this for
 5 extra marks.  If you do that, use these masks in the analyses of regions of
 activation that follow.
 
+FBI: the first step involves some behavioural analysis.  It is optional, for
+5 extra marks.
+
 > Behavioural data from six subjects were lost due to a problem recording
 > button press responses while in the scanner. The data from the remaining
 > subjects (n=39) were analysed using signal detection theory as hits and false
@@ -232,9 +235,10 @@ activation that follow.
 > addition, d-prime (d') scores were calculated to measure sensitivity for
 > detecting repeated items (Table 1).
 
-FBI: You should replicate the data in table 1 as closely as you can, showing
-your working.  Results count for 5 marks (see *Your report* below).  Please see
-the note in the "Data format" section for a confusing error in the event files.
+FBI: If you want to do this step, you should replicate the data in table 1 as
+closely as you can, showing your working.  Results count for 5 extra marks (see
+*Your report* below).  Please see the note in the "Data format" section for
+a confusing error in the event files.
 
 FBI: Do the two ANOVA analyses in the next section for a total of 4 extra
 marks.
@@ -264,10 +268,10 @@ reaction time for correct detections.
 > posterior fusiform gyrus and laterally onto the inferior temporal gyrus.
 
 FBI: Show the group-level activation map, on the MNI standard brain, for
-OBJECTS-SCRAMBLED and WORDS-REST: 4 marks each = 8 total. Show the table of
-activated clusters: 2 marks each = 4 total.  Give the location of the
-t-statistic map for this comparison: 2 marks each = 4 total.  Total for this
-item = 16.
+OBJECTS-SCRAMBLED and WORDS-REST: 5 marks each = 10 total. Show the table of
+activated clusters: 3 marks each = 6 total.  Give the file-system location of
+the t-statistic map that you generated for this comparison: 2 marks each
+= 4 total.  Total for this item = 20.
 
 > To visualize this activation, the group results were projected onto an inflated
 > surface of an "average" brain (i.e. Freesurfer's fsaverage subject) to
@@ -439,16 +443,14 @@ For your assessment, you should:
     quality of your replication and replication report for the following
     features of the paper:
 
-    1.   Replication of data from table 1, including hits, false alarms,
-         d-prime and reaction times:  5 marks.
     1.   Replication of group activation map and cluster table for OBJECTS \-
-         SCRAMBLED: 8 marks and WORDS \- REST: 8 marks.  See above for detail
+         SCRAMBLED: 10 marks and WORDS \- REST: 10 marks.  See above for detail
          of mark allocation.
     1.   Replication of average effects within regions of interest, from panel
          D of figure 2: 5 marks.
     1.   Replication of inter-subject variability in peak activation
          coordinates for the two comparisons of interest and their matching OFC
-         locations (table 2): 9 marks.
+         locations (table 2): 10 marks.
     1.   Replicate calculation of peak to peak variability across runs, for
          each comparison of interest and their matching OFC locations.  Show
          a histogram for each. Total is 10 marks.
@@ -459,8 +461,10 @@ For your assessment, you should:
 ## Extra marks
 
 There are 100 ordinary marks available (marks above not labeled as "extra"),
-and 20 extra marks available.
+and 25 extra marks available.
 
+1.   Replication of data from table 1, including hits, false alarms, d-prime
+     and reaction times:  5 marks.
 1.   Apply per-subject gray-matter mask to region of interest: 5 marks;
 1.   ANOVA for d-prime scores: 2.5 marks;
 1.   ANOVA for reaction time of correct detections: 2.5 marks;
