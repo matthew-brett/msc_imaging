@@ -144,129 +144,74 @@ In the following paragraphs, we have reproduced sections from the methods
 section of the Duncan *et al* paper. You will see the exceptions in our
 annotations labeled with "FBI annotation:"
 
-> Imaging data were processed and analyzed using FSL 4.1 (FMRIB's Software
-> Library, www.fmrib.ox.ac.uk/fsl). Steps included BET to extract the brain
-> from the skull and McFLIRT for motion correction. Statistical analysis was
-> conducted using FEAT 5.98.
+> Data processing was carried out using FSL 4.0 (www.fmrib.ox.ac. uk/fsl).
 
 FBI annotation: you will be using the versions of FSL and FEAT that are
 currently on the cluster.
 
-> The statistical models varied depending on the task. For the SS task, the
-> model included events for successful go responses, successful stop
-> responses, and unsuccessful stop responses.  Incorrect and missed go trials
-> were included in a nuisance regressor. All events began at fixation onset
-> and lasted through the duration of the stimulus (1.5 seconds). For the BART,
-> the model included events for inflating the balloon (all but the last
-> inflation of each trial), the last inflation before an explosion, cashing
-> out, and a balloon explosion. The three response-related events began at
-> stimulus onset and lasted the duration of the participant's RT. The
-> explosion event began at the time of the explosion and lasted the amount of
-> time the exploded balloon was on the screen (2 seconds).
+> To allow for T1 equilibrium, the initial two images of each run were
+> discarded.
 
-FBI annotation: we have prepared the event onset files for you, with one file
-for each of these event types.  You will find these files in the subject
-`func` directories (see below).  The files are in "Custom 3 column format" \-
-see the [FEAT user
-guide](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide) for more
-information.
+FBI annotation: the experimenters have already dropped the two dummy volumnes
+from the image files in the ds107 dataset, so the first volume in each FMRI run, in the data you have, is the first not-dummy scan.
 
-FBI annotation: the following description is for tasks you do not need to
-analyze for this assessment (but you can analyze for extra marks):
+> The data were then realigned to remove small head movements
+> (Jenkinson et al., 2002), smoothed with a Gaussian kernel of FWHM 6 mm, and
+> pre-whitened to remove temporal auto- correlation (Woolrich et al., 2001).
 
-> For the temporal discounting task, the model included events for trials
-> predefined as hard choices and trials predefined as easy choices. It also
-> included parametric regressors weighting each of those trial types by delay.
-> All events began at stimulus onset. The duration of all events was the
-> participant's RT on that trial. Nuisance regressors included trials with no
-> response (duration 4.5 seconds) and the remainder of each trial itself after
-> a decision had been made (4.5 seconds - RT). For the emotion regulation
-> task, the model included events for viewing the attend instructions, viewing
-> the suppress instructions, viewing the three different image types (attend
-> neutral, attend negative, and suppress negative), viewing the rating screen,
-> and a de-meaned parametric regressor weighted by the participant's response.
-> All events began at stimulus onset and lasted either the duration of the
-> stimulus (1 second for instructions, 5 seconds for images) or the
-> participant's RT (viewing the rating screen and the parametric regressor of
-> the participant's rating).  Missed rating trials were included in a nuisance
-> regressor with a duration of 3 seconds. For the image regressors, only
-> images rated as 1-3 (all neutral images) or 5-7 (all negative images) were
-> included. Three participants had less than two instances of at least one of
-> the events and were therefore excluded from the analysis.
 
-FBI annotation: the following applies to all four tasks, and therefore to the two
-tasks in this assessment.
+> The resulting images were entered into a general linear model with four
+> conditions of interest corresponding to the four categories of visual
+> stimuli. Blocks were convolved with a double gamma “canonical” hemodynamic
+> response function (Glover, 1999) to generate the main regressors.
 
-> For the first level analysis, images were spatially smoothed using a
-> Gaussian kernel of FWHM 5 mm. Time-series statistical analysis was carried
-> out using FILM (FMRIBs Improved Linear Model) with local autocorrelation
-> correction after highpass temporal filtering (Gaussian-weighted
-> least-squares straight line fitting with sigma = 33.0s). Regressors of
-> interest were created by convolving a delta function representing each event
-> of interest with a canonical (double- gamma) hemodynamic response function
-> (Woolrich et al., 2001).
+FBI annotation: we have prepared the block onset files for you, with one file
+for each of these event types.  You will find these files in the subject `func`
+directories (see below).  The files are in "Custom 3 column format" \- see the
+[FEAT user guide](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide) for
+more information.
 
-FBI annotation: the next sentence applies only to the TD experiment, which is
-not part of your standard assessment:
-
-> Parametric regressors were created by modulating the amplitude of a delta
-> function using a demeaned version of the parameter of interest.
-
-FBI annotation: the following sentence does apply to all experiments:
-
-> In addition to regressors of interest, estimated motion parameters and their
-> temporal derivatives (i.e., displacement) were included as nuisance
-> regressors.  Linear contrasts were performed for comparisons of interest.
-
-FBI annotation: the 3-step registration method below is somewhat complicated.
-We will give you 5 *extra marks* if you implement it (see below), but you can
-also get full ordinary marks (see below) by doing the standard registration of
-the EPI functional images to the matching structural images, as you have been
-taught in the workshops.
-
-> A 3-step registration process was applied using FSL's FNIRT module for
-> nonlinear registration. EPI functional images were first registered linearly
-> to an inplane T2-weighted structural image (matched bandwidth; 7 DOF). The
-> inplane structural image was registered linearly to the high-resolution
-> structural image (MPRage; 7 DOF), and the high-resolution image was
-> registered to standard MNI152 space using nonlinear registration with 12
-> degrees of freedom (warp resolution 10 mm). These transformation matrices
-> were combined to provide the transform from EPI to MNI space, and this
-> transform was applied to the results from the first-level analysis.
-
-> For the two tasks that had more than one run (SS and ER), data were combined
-> across the two runs using a fixed effects model, and then modeled using
-> mixed effects at the group level with FSL's FLAME model (Stage 1 only). The
-> model for each task included a regressor modeling mean activity and demeaned
-> regressors for SSRT (SS), number of pumps (BART), k (TD), and amount of
-> reported regulation (ER). Outlier deweighting was performed using a mixture
-> modeling approach (Woolrich, 2008).
+> In addition, the estimated motion parameters were entered as covariates of no
+> interest to reduce structured noise due to minor head motion. Linear
+> contrasts of [words N fixation] and [objects N scrambled objects] identified
+> reading- and object-sensitive areas, respectively. First level results were
+> registered to the MNI-152 template using a 12-DOF affine transformation
+> (Jenkinson and Smith, 2001) and all subsequent analyses were conducted in the
+> MNI standard space. A second level fixed-effects model combined the two first
+> level runs into a single, subject-specific analysis which was then entered
+> into a third level, mixed effects analysis to draw inferences at the
+> population level (Beckmann et al., 2003; Woolrich et al., 2004).
 
 FBI annotation: see the FEAT user manual for details of the options above:
 https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide
 
-> Results were thresholded at a whole-brain level using cluster-based Gaussian
-> random field theory, with a cluster-forming threshold of z > 2.3 and a
-> whole-brain corrected cluster significance level of p < .05 unless otherwise
-> noted in the text.
+> In order to restrict the analyses to the ventral and lateral OTC, two
+> anatomical masks were drawn in standard space. The ventral OTC mask
+> encompassed the posterior portion of the left fusiform gyrus,
+> occipito-temporal sulcus (OTS), and medial parts of the inferior temporal
+> gyrus (ITG) — areas consistently activated by visual word recognition tasks
+> (Fiez et al., 1999; Fiez and Petersen, 1998; Herbster et al., 1997; Price et
+> al., 1996; Price et al., 1994; Rumsey et al., 1997; Shaywitz et al., 2004).
+> The standard space coordinates were: X=−30 to −54, Y=−45 to −70 and Z=−30 to
+> −4. This region is sometimes referred to as the “visual word form area”
+> (Dehaene et al., 2005; McCandliss et al., 2003), although the term is
+> misleading as it suggests a functional specificity which is not present
+> (Price and Devlin, 2003, 2004). The lateral OTC mask encompassed lateral
+> posterior fusiform gyrus, posterior OTS and lateral parts of posterior ITG
+> — areas consistently activated by visual objects and collectively known as
+> the “lateral occipital complex” (Grill-Spector et al., 1999; Malach et al.,
+> 1995). The standard space coordinates were X=−33 to −56, Y=−67 to −89 and
+> Z=−20 to +4. Within each mask, only voxels with at least a 20% chance of
+> being grey matter were included based on an automatic tissue segmentation
+> algorithm (Zhang et al., 2001).
 
-FBI annotation: the following paragraph completes the FMRI analysis methods
-description, but does not apply to your task in this assessment.
-
-> Results of the ROI analysis were thresholded within that ROI using a
-> threshold-free cluster enhancement method (TFCE; S. M. Smith & Nichols,
-> 2009) and a corrected significance level of p <.05 unless otherwise noted.
-> The conjunction analysis found areas that were significantly active within
-> that ROI for at least two of the tasks. Cortical surface renderings were
-> performed using CARET software (http://brainmap.wustl.edu). Group
-> statistical maps were mapped to the Population Average Landmark and
-> Surface-based (PALS) atlas using the multifiducial mapping technique
-> described by Van Essen (Van Essen, 2005).  For the purposes of presentation,
-> data are overlaid on the average atlas surface.
+We have generated these masks files for you.  You will find them in the `data`
+directory, with filenames `ventral_otc_cube.nii.gz` and
+`lateral_otc_cube.nii.gz` respectively.
 
 ## The data format
 
-Your friendly OpenFMRI team has arranged the data in the standard BIDS format:
+Your friendly OpenNeuro team has arranged the data in the standard BIDS format:
 http://bids.neuroimaging.io
 
 In this particular case this means that each subject has a directory structure
@@ -274,36 +219,13 @@ like this:
 
 ```
 sub-01
-|-- anat
-|   |-- sub-01_inplaneT2.json
-|   |-- sub-01_inplaneT2.nii.gz
-|   |-- sub-01_T1w.json
-|   `-- sub-01_T1w.nii.gz
-|-- dwi
-|   |-- sub-01_dwi.bval
-|   |-- sub-01_dwi.bvec
-|   |-- sub-01_dwi.json
-|   `-- sub-01_dwi.nii.gz
-|-- func
-|   |-- sub-01_task-balloonanalogrisktask_bold.json
-|   |-- sub-01_task-balloonanalogrisktask_bold.nii.gz
-|   |-- sub-01_task-balloonanalogrisktask_events.tsv
-|   |-- sub-01_task-discounting_bold.json
-|   |-- sub-01_task-discounting_bold.nii.gz
-|   |-- sub-01_task-discounting_events.tsv
-|   |-- sub-01_task-emotionalregulation_run-01_bold.json
-|   |-- sub-01_task-emotionalregulation_run-01_bold.nii.gz
-|   |-- sub-01_task-emotionalregulation_run-01_events.tsv
-|   |-- sub-01_task-emotionalregulation_run-02_bold.json
-|   |-- sub-01_task-emotionalregulation_run-02_bold.nii.gz
-|   |-- sub-01_task-emotionalregulation_run-02_events.tsv
-|   |-- sub-01_task-stopsignal_run-01_bold.json
-|   |-- sub-01_task-stopsignal_run-01_bold.nii.gz
-|   |-- sub-01_task-stopsignal_run-01_events.tsv
-|   |-- sub-01_task-stopsignal_run-02_bold.json
-|   |-- sub-01_task-stopsignal_run-02_bold.nii.gz
-|   `-- sub-01_task-stopsignal_run-02_events.tsv
-`-- sub-01_scans.tsv
+├── anat
+│   └── sub-01_T1w.nii.gz
+└── func
+    ├── sub-01_task-onebacktask_run-01_bold.nii.gz
+    ├── sub-01_task-onebacktask_run-01_events.tsv
+    ├── sub-01_task-onebacktask_run-02_bold.nii.gz
+    └── sub-01_task-onebacktask_run-02_events.tsv
 ```
 
 For each subject, you will need the anatomical T1 file at
@@ -312,28 +234,21 @@ The ``.nii.gz`` files are the 4D EPI FMRI runs, and the `.tsv` files give full
 details about all events during the runs.  You will also find event files for
 each event named in the corresponding FMRI analysis methods section above (not
 shown in the listing).  These files end in `_label-<event_name>.txt`, where
-`<condition_name>` is the name of the event.  For the BART task these are
-`inflate, beforeexplode, cashout, explode`.  For the SS task these are
-`gocorrect, stopcorrect, stopincorrect, goincorrect`.
-
-If there is no `.txt` file for a particular event, assume that there were not
-events of that type for the matching scanning run.
-
-You'll find the scanning parameters, such as the order of slice acquisition,
-in the files ending in `_bold.json`.
+`<condition_name>` is the name of the event.  The labels are `objects,
+scrambled, words, consonants`.
 
 ## Your report
 
 For your assessment, you should:
 
 1.  Fill in the README.txt / README.docx file with a detailed guide to
-    repeating all the steps in your analysis.  Reference or quote the thesis
-    methods section, as we have above, for example:
+    repeating all the steps in your analysis.  Reference or quote the methods
+    section from the paper, as we have above, for example:
 
     "I ran the FEAT analysis tool, and chose the option to coregister the EPI
-    functional scan `sub-XX/func/sub-XX_task-balloonanalogrisktask_bold.nii.gz`
+    functional scan `sub-XX/func/sub-XX_task-onebacktask_run-01_bold.nii.gz`
     to the anatomical T1 scan `sub-XX/sub-01_T1w.nii.gz`. This was in order to
-    replicate (in part) the following from the thesis method section "A 3-step
+    replicate the following from the thesis method section "A 3-step
     registration process was applied using FSL's FNIRT module for nonlinear
     registration. EPI functional images were first registered linearly to an
     inplane T2-weighted structural image (matched bandwidth; 7 DOF). The
