@@ -1,9 +1,12 @@
-all: slides-less_basic
+all: assessment-2018
 
 slides-%:
 	pandoc -t beamer -s $*.md -o $*.pdf
 
-assessment:
+assessment-2018:
+	pandoc -s assessment_b_2018.md -o assessment_b_2018.pdf
+
+assessment-2017:
 	pandoc -s assessment_b_full.md -o assessment_b_full.pdf
 
 er-files:
