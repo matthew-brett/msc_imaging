@@ -4,7 +4,7 @@ Feel free to propose edits or new questions for this FAQ.
 
 You can do that by email to <m.brett@bham.ac.uk>, or for cool points, use the
 pen icon at the top right of the page to make and propose your edits.  You'll
-need a Github account for that, but that's a good thing to do in any case.
+need a Github account for that, but that's a good thing to have in any case.
 
 ## Do I have to copy the data? or Why am I getting permission errors?
 
@@ -151,7 +151,7 @@ your report.
     your home directory, you could type `cd ~/Documents`.  If you're stuck
     working out how to get to that directory, try opening a Finder window,
     then navigate to the directory containing the file you want to transfer,
-    and drag the file to the Terminal window.  It's path (position on the file
+    and drag the file to the Terminal window.  Its path (position on the file
     system) should appear in the Terminal window.
   * Use `scp` to copy the file to the cluster - e.g.
 
@@ -161,6 +161,6 @@ your report.
 
     where `xxx` is your username.
 
-    This will copy the `README.docx` file to the `replication` directory on
-    the server.  The server will ask for your password.
-
+    This will start a copy of the `README.docx` file to the `replication`
+    directory on the server.  The server will ask for your password to finish
+    the copy.
