@@ -68,7 +68,7 @@ introduction.
 
 First you will need to know what order the scanner collected the slices in your
 data.   The original functional images, from which the experimenters made the
-OpenFMRI copies, had this information in their [NIfTI
+OpenNeuro copies, had this information in their [NIfTI
 header](https://nifti.nimh.nih.gov/nifti-1).  They all had the header field
 named `slice_code` set to 3, which signifies "alternating increasing".  This
 means that the scanner collected the bottom slice first (call that slice 1),
@@ -80,11 +80,11 @@ Guide](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide).
 
 ## How did you create the event .txt files?
 
-The OpenFMRI data does not not come with the `.txt` files giving the onset,
+The OpenNeuro data does not not come with the `.txt` files giving the onset,
 duration and amplitude information for each event type.  I created these files
 from the overall event definition files for each task.
 
-For example, here are a listing of the `.txt` files for subject 01:
+For example, here is a listing of the `.txt` files for subject 01:
 
 ```
 sub-01/func/sub-01_task-onebacktask_run-01_label-objects.txt
@@ -97,17 +97,21 @@ sub-01/func/sub-01_task-onebacktask_run-02_label-strings.txt
 sub-01/func/sub-01_task-onebacktask_run-02_label-words.txt
 ```
 
-I used a Python script to generate these files from the source files:
+I used a Python script to generate these files from the overall event
+definition files:
 
 ```
 sub-01/func/sub-01_task-onebacktask_run-01_events.tsv
 sub-01/func/sub-01_task-onebacktask_run-02_events.tsv
 ```
 
-I will soon publish the script that I used to do this.
+The script that I used was:
 
-As you will see from that script, I had to write small algorithms to analyze
-the events, and select the ones corresponding to the individual trial types.
+<https://github.com/matthew-brett/ds107-fixes/blob/master/ds107_onsets.py>
+
+As you might be able to see from that script, I had to write small algorithms
+to analyze the events, and select the ones corresponding to the individual
+trial types.
 
 ## Which images should I refer to in my report?
 
