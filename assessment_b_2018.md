@@ -45,6 +45,8 @@ The data are a slightly modified version of the DS107 OpenNeuro / OpenFMRI datas
 
 https://openneuro.org/datasets/ds000107
 
+The only modifications we have made, are to fix a couple of broken event definition files for subject 43.  See the `sub-43/func/orig` directory for details.
+
 You will also find a near-empty text file:
 
 ```
