@@ -292,7 +292,7 @@ From the legend in figure 2:
 > p < 0.001.
 
 FBI: Replicate panel D of figure 2, by taking the average of all voxels within
-the lateral and ventral OTC mask, for the contrast images of WORDS, CONSONANTS,
+the lateral and ventral OTC mask, for the contrast images of WORDS, STRINGS,
 OBJECTS, and SCRAMBLED OBJECTS.  Hint: investigate the `fslstats` command to do
 things like apply a masking image, and calculate an average across the
 remaining voxels.  This is worth 5 marks.
@@ -399,7 +399,7 @@ details about all events during the runs.  You will also find event files for
 each event named in the corresponding FMRI analysis methods section above (not
 shown in the listing).  These files end in `_label-<event_name>.txt`, where
 `<condition_name>` is the name of the event.  The labels are `objects,
-scrambled, words, consonants`.
+scrambled, words, strings`.
 
 Be careful of the data in the `_events.tsv` files.  These files have a column
 for "trial_type" that has wrong data; the column labeled "0" has the event
