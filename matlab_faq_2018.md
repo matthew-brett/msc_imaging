@@ -32,18 +32,18 @@ presentation the first time you present that version of the task.
 You can use any Matlab toolbox that is installed by default on the machines in
 the B24 computer cluster.
 
-dou should use the specific version installed on the cluster.
+You should use the specific version installed on the cluster.
 
 You can't use any toolbox that is not installed on the cluster.
 
 Specifically, you *can* use *Psychtoolbox*, because it is installed on the
 cluster.   The installed version of Psychtoolbox is 3.0.12.
 
-If you do use Psychtoolbox, please make sure that your experiment does run as
-you expect, without errors, on the cluster machines.  It can be difficult to
-get Psychtoolbox working the same way on different computers, and particularly,
-on different platforms, such as Windows and Mac.   We weakly recommend that you
-do not use Psychtoolbox, for that reason.
+If you do use Psychtoolbox, please make sure that your experiment runs as you
+expect, without errors, *on the cluster machines*.  It can be difficult to get
+Psychtoolbox working the same way on different computers, and particularly, on
+different platforms, such as Windows and Mac.   We weakly recommend that you do
+not use Psychtoolbox, for that reason.
 
 ## What should I display between stimuli?
 
