@@ -78,6 +78,76 @@ returned to collect slice 2, 4 and so on.
 To do the slice-timing correction in FSL, see the [FEAT User
 Guide](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide).
 
+## How do compare an event against fixation?
+
+The methods of the paper used (among other
+contrasts):
+
+> contrasts of [words > fixation] and [objects
+> scrambled objects]
+
+WORDS, OBJECTS and SCRAMBLED are all event types.  If
+it is not clear how to do contrasts of events, please
+read the contrast sections of the [introduction to
+the General Linear
+Model](https://matthew-brett.github.io/fbi2018/chapters/04/glm_intro)
+
+Fixation is not an event \- at least, it is not an
+event for which you have event onset files.  So, how
+do you compare WORDS to fixation?
+
+The trick is, that you can consider fixation to be
+everything that is not modeled by the other events.
+
+Another way to think of it, is that fixation is an
+*implicit baseline*.
+
+Consider [this analysis for a single
+voxel](https://matthew-brett.github.io/fbi2018/chapters/04/glm_one_voxel).
+
+Here we have only one event, and one haemodynamic
+predictor \- as well as the intercept column of all
+ones.
+
+The analysis estimates a slope relating the
+haemodynamic predictor (x) to the voxel signal (y).
+
+The slope is in the following situation: the signal
+is low, when the predictor is low (or negative), and
+high when the predictor is high.  Notice that the
+predictor is low during the rest blocks (the stuff we
+have not modeled).
+
+This is generally true; the event regressors are high
+when the events have just happened, and low during
+periods when the events are not happening.
+
+When there is more than one event, you can think of
+each event regressor separately picking up signal
+that relates to the haemodynamic prediction for the
+corresponding event.
+
+Each slope we estimate, for the event, is a slope
+*relative to the not-modeled signal*, and so,
+relative to rest, or fixation, if we have not modeled
+rest or fixation.
+
+Therefore, the slope for WORDS will be positive when
+the signal during the WORDS events is greater than
+signal during fixation / rest, and the same is true
+for the other events.  Therefore the slope for
+OBJECTS is positive when signal after OBJECTS events
+is greater than activity during rest, and so on.
+
+There is a somewhat technical discussion of implicit
+baselines in this paper:
+
+Pernet, Cyril R. "Misconceptions in the use of the
+General Linear Model applied to functional MRI:
+a tutorial for junior neuro-imagers." Frontiers in
+neuroscience 8 (2014): 1.
+[link](https://www.frontiersin.org/articles/10.3389/fnins.2014.00001/full).
+
 ## How did you create the event .txt files?
 
 The OpenNeuro data does not not come with the `.txt` files giving the onset,
