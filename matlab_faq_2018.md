@@ -42,11 +42,26 @@ cluster.   The installed version of Psychtoolbox is 3.0.12.
 If you do use Psychtoolbox, please make sure that your experiment runs as you
 expect, without errors, *on the cluster machines*.  It can be difficult to get
 Psychtoolbox working the same way on different computers, and particularly, on
-different platforms, such as Windows and Mac.   We weakly recommend that you do
-not use Psychtoolbox, for that reason.
+different platforms, such as Windows and Mac.   We weakly recommend that you
+do not use Psychtoolbox, for that reason.
 
 ## What should I display between stimuli?
 
 You can display a blank screen between the stimuli, if you like, or a fixation
 cross.   Choose the option that gives the best results in terms of helping the
 participants concentrate on the task.
+
+## Isn't the assessment doc wrong about when the first target can happen?
+
+Yes it is.  The assessment doc says:
+
+> You should discard the first N-1 trials from your analysis, because the
+> subject will know these cannot be targets.  For example, for the 4-back
+> task, the subject will know that presentations 1, 2, and 3 cannot be
+> targets.
+
+As Justin pointed out, this is wrong, and you should discard the first
+N trials.  The first trial number that a target can appear is N + 1, and
+therefore the first N trials cannot be targets.  For example, for a 1-back
+task, the first trial cannot be a target, but the second trial can (trial
+N + 1)
