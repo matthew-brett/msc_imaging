@@ -60,7 +60,7 @@ Yes it is.  The assessment doc says:
 > task, the subject will know that presentations 1, 2, and 3 cannot be
 > targets.
 
-As Justin pointed out, this is wrong, and you should discard the first
+As Justin Chung pointed out, this is wrong, and you should discard the first
 N trials.  The first trial number that a target can appear is N + 1, and
 therefore the first N trials cannot be targets.  For example, for a 1-back
 task, the first trial cannot be a target, but the second trial can (trial
