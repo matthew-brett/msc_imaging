@@ -54,11 +54,11 @@ You will also find a near-empty text file:
 ```
 
 When you have finished the assignment, you will have filled out that file with
-all the instructions necessary for someone else to replicate your analysis. The
-specific "Someone else" will be us, your instructors.
+all the instructions necessary for someone else to replicate your analysis.
+The specific "Someone else" will be us, your instructors.
 
-We highly recommend that you edit the `README.txt` file, but if you prefer, you
-can also record the instructions in a Word file, which should be called:
+We highly recommend that you edit the `README.txt` file, but if you prefer,
+you can also record the instructions in a Word file, which should be called:
 
 ```
 /home/people/xxx/replication/README.docx

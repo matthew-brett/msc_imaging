@@ -65,3 +65,125 @@ N trials.  The first trial number that a target can appear is N + 1, and
 therefore the first N trials cannot be targets.  For example, for a 1-back
 task, the first trial cannot be a target, but the second trial can (trial
 N + 1)
+
+## What can I do if I get stuck?
+
+Getting stuck is one of the most common and fundamental problems in
+programming.   All programmers struggle with getting stuck.
+
+The trick is to keep moving, somehow.  Do smaller parts of the task.  Try
+things any way you can, on paper, with scripts at the interactive prompt, until you understand the problem better, then step back, and see if you can solve the problem, as posed.
+
+For example, if you have having trouble with the `generate_sequence` function,
+then try something else to generate the output data, `sequence`.
+
+That is, try anything you like, paper and pencil, Excel, or working from the
+Matlab prompt, to generate a 1-back version of `sequence`.  Remember, this is
+a two-dimensional matrix (or table, or whatever you want to call it), where
+there are 48 (or 24) rows, and each row has a letter to be presented, and
+a letter 'T' to say whether this is a target or 'N' to say it is a non-target.
+
+The letters should be at least plausibly random (that is - the subject can't
+tell they are not random).
+
+Maybe generate this as a text file, `my_first_sequence.csv`.
+
+Here I make a quick fake `sequence`, with 20 random letters from `abcdef` in
+the first column, and random `p` or `q` in the last column.
+
+```{matlab}
+% A shape (20, 1) array of letters, starting with spaces
+sequence = char(ones(20, 2));
+letters = 'abcdef';
+indices = randi(length(letters), 20, 1);
+sequence(:, 1) = letters(indices);
+resps = 'TN';
+indices = randi(length(resps), 20, 1);
+sequence(:, 2) = resps(indices)
+```
+
+Then I save it as a comma-separated value (CSV) file:
+
+```{matlab}
+csvwrite('my_first_sequence.csv', sequence)
+```
+
+You wouldn't want to use this file exactly, because it doesn't use the right
+letters, and the responses don't correspond to real N-back checks.
+
+I could also have made this file in Notepad, or by doing something in Excel.
+
+Now when you want to work on `deliver_n_back`, you can load the sequence file,
+and run it with your `deliver_n_back` function.
+
+```{matlab}
+% Generates a Matlab "table" - but you don't need to know about these.
+seq_table = readtable('my_first_sequence.csv');
+% Convert to cell array
+seq_cells = table2array(seq_table);
+% Convert to char array
+sequence_back = cell2mat(seq_cells)
+```
+
+## But what if I'm still stuck?
+
+Keep moving.  Another way to do this, is to start writing your function in
+comments.  For example, let's imagine I'm stuck on my `generate_sequence`
+function.
+
+I start by making a new file `generate_sequence.m`, like this, that just copies the template from the instructions.
+
+```{matlab}
+function [sequence] = generate_sequence(N, n_presentations)
+% The arguments to this function are:
+%
+% * `N` as in the N of N-back.  This should be one of 1, 2, 3, or 4.
+% * `n_presentations` should be the number of presentations in the
+%   sequence.  In your case this will be 48 or 24, but your function
+%   should allow for different lengths of sequences.
+%
+% The function returns a 2D matrix `sequence`, with `n_presentations` rows (48
+% for the full sequences, 24 for the practice sequences), and two columns,
+% where the first column is the letter to present (one of
+% `BCDFGHJKLMNPQRSTVWXYZ`) and the second is one of `T` or `N` where `T` means
+% target and `N` means non-target.
+
+end
+```
+
+Then I start to fill out the function with comments listing the things I will
+need to do, inside the function.
+
+```{matlab}
+function [sequence] = generate_sequence(N, n_presentations)
+% The arguments to this function are:
+%
+% * `N` as in the N of N-back.  This should be one of 1, 2, 3, or 4.
+% * `n_presentations` should be the number of presentations in the
+%   sequence.  In your case this will be 48 or 24, but your function
+%   should allow for different lengths of sequences.
+%
+% The function returns a 2D matrix `sequence`, with `n_presentations` rows (48
+% for the full sequences, 24 for the practice sequences), and two columns,
+% where the first column is the letter to present (one of
+% `BCDFGHJKLMNPQRSTVWXYZ`) and the second is one of `T` or `N` where `T` means
+% target and `N` means non-target.
+
+% Create a char array "sequence" size n_presentations by 2
+
+% Fill the first column with n_presentations random letters from
+% `BCDFGHJKLMNPQRSTVWXYZ`.
+
+% Fill the second column with 'T' or 'N', where each value has a
+% 33.3% chance of being 'T'
+
+% Remember the first N values can't be targets.
+
+% Go through the letters in the first column, and change them to target
+% letters, if the second column has a 'T'
+
+% Think about what do with letters that are targets just due to the initial
+% random selection of the letters, but that have 'N' in the second column.
+
+end
+```
