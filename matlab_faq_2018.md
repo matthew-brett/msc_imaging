@@ -114,7 +114,7 @@ letters, and the responses don't correspond to real N-back checks.
 I could also have made this file in Notepad, or by doing something in Excel.
 
 Now when you want to work on `deliver_n_back`, you can load the sequence file,
-and run it with your `deliver_n_back` function.
+and run it with your `deliver_n_back` function.  Here I load the CSV file, ready to use with `deliver_n_back(sequence)`.
 
 ```{matlab}
 % Generates a Matlab "table" - but you don't need to know about these.
