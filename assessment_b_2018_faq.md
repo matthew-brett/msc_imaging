@@ -191,6 +191,20 @@ names like `thresh_zstat1.nii.gz` and `rendered_thresh_zstat1.nii.gz`.  The
 Prefer the `thresh_zstat` image when you are choosing images to point to for
 your report.
 
+## Do I need to get exactly the same answers as the paper?
+
+You will all but certainly find that, if you do your analysis correctly, you
+will not get exactly the same answers as the paper.   Just for example, you
+are using a different version of FSL.  In some cases, we are really guessing
+what the authors did, and this is particularly so for the replication of
+figure 2, panel D, where it isn't clear (to me) what voxels the authors were
+averaging to get their effect sizes.  I guessed it was all the voxels in the
+lateral and ventral cortex regions, but that may be wrong.  You may not have
+exactly the same set of subjects as the authors used here.
+
+So, all the marks for the replication are for the correct procedure, giving
+a valid answer for the data you have.
+
 ## How do I copy my Word / other files from my laptop to the cluster?
 
 ### On Windows
