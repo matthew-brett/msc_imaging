@@ -205,6 +205,13 @@ exactly the same set of subjects as the authors used here.
 So, all the marks for the replication are for the correct procedure, giving
 a valid answer for the data you have.
 
+## I've run out of disk space on the cluster.  What should I do?
+
+1. Try cleaning up any temporary files.
+2. If that doesn't work, you can email Charnjit Sidhu at
+   pbic-computing@contacts.bham.ac.uk to ask for a bigger quota.  You should
+   explain what you have done in step 1 above, to clean out old files.
+
 ## How do I copy my Word / other files from my laptop to the cluster?
 
 ### On Windows
