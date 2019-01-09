@@ -187,3 +187,28 @@ function [sequence] = generate_sequence(N, n_presentations)
 
 end
 ```
+
+## I've found a function online that I want to use, can I?
+
+The assessment document says your submission should only use code that you
+wrote yourself, or code that is installed by default on the cluster machines.
+
+This is true for the main parts of the task, such as the logic for generating
+the stimulus sequence, and delivering the stimuli.  For example, you can't use
+anyone else's code to generate the sequence of N-back characters, in
+`generate_sequence.m`.
+
+For more peripheral tasks, such as improving stimulus display, you can use
+other people's code, as long as you have our explicit prior permission.  We
+will generally give you permission if:
+
+* The task you are using the code for is not central to the logic of the
+  assessment.
+* You point us to the code that you want to use, you use exactly the code you
+  point us to, and you give credit to the author and a link to the code, in
+  your submitted materials.
+* You submit a copy of the code with your assessment materials.
+
+Remember, if you want to use someone else's code in your assessment work, you
+have to ask us for permission *before you submit*.  Otherwise, we go back to
+the plagiarism rules that you'll see in the assessment document.
