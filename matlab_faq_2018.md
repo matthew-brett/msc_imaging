@@ -212,3 +212,30 @@ will generally give you permission if:
 Remember, if you want to use someone else's code in your assessment work, you
 have to ask us for permission *before you submit*.  Otherwise, we go back to
 the plagiarism rules that you'll see in the assessment document.
+
+## What should my analysis figures have on them?
+
+The wording of the assessment document isn't very clear, but we are expecting
+that you will generate a single figure, for each combination of participant and
+N-back number.
+
+That is, if you have three participants, you will have 3 * 4 = 12 figures.  If
+P is the participant, and N is the N-back number, you will have one figure for each of:
+
+* P=1, N=1
+* P=1, N=2
+* P=1, N=3
+* P=1, N=4
+* P=2, N=1
+...
+* P=4, N=4
+
+Each figure will have:
+
+* The reaction time distribution for correct responses for this participant,
+  version of the task.
+* Mean reaction time for correct responses to targets, for this participant,
+  version of the task.
+* Mean reaction time for correct responses to non-targets, for this
+  participant, version of the task.
+* Percent correct, for this participant, version of the task.
