@@ -241,8 +241,8 @@ Each figure will have:
   this participant, version of the task.
 * A display of percent correct, for this participant, version of the task.
 
-The display of mean reaction time for correct responses to targets, no-targets,
-might be in the form of a bar chart, or box plot.
+The display of mean reaction time for correct responses to targets,
+non-targets, might be in the form of a bar chart, or box plot.
 
 The assessment document is confusing (otherwise put, confused) in suggesting
 a separate bar chart for the mean reaction times for targets, non-targets, and
