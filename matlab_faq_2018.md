@@ -215,9 +215,10 @@ the plagiarism rules that you'll see in the assessment document.
 
 ## What should my analysis figures have on them?
 
-The wording of the assessment document isn't very clear, but we are expecting
-that you will generate a single figure, for each combination of participant and
-N-back number.
+The assessment document is a bit confused about the analysis outputs, so here is a clarification.
+
+We are expecting that you will generate a single figure, for each combination
+of participant and N-back number.
 
 That is, if you have three participants, you will have 3 * 4 = 12 figures.  If
 P is the participant, and N is the N-back number, you will have one figure for each of:
@@ -234,8 +235,16 @@ Each figure will have:
 
 * The reaction time distribution for correct responses for this participant,
   version of the task.
-* Mean reaction time for correct responses to targets, for this participant,
-  version of the task.
-* Mean reaction time for correct responses to non-targets, for this
-  participant, version of the task.
-* Percent correct, for this participant, version of the task.
+* A display of the mean reaction time for correct responses to targets, for
+  this participant, version of the task.
+* A display of the mean reaction time for correct responses to non-targets, for
+  this participant, version of the task.
+* A display of percent correct, for this participant, version of the task.
+
+The display of mean reaction time for correct responses to targets, no-targets,
+might be in the form of a bar chart, or box plot.
+
+The assessment document is confusing (otherwise put, confused) in suggesting
+a separate bar chart for the mean reaction times for targets, non-targets, and
+percent correct.  Please use the summary above as a correct description of you
+task.
