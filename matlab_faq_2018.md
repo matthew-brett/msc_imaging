@@ -244,7 +244,11 @@ Each figure will have:
 The display of mean reaction time for correct responses to targets,
 non-targets, might be in the form of a bar chart, or box plot.
 
+Your `analysis.m` script will generate all these figures; that is, it will
+generate all the figures for participant 1 1-back, participant 1 2-back ...
+participant 3 4-back.
+
 The assessment document is confusing (otherwise put, confused) in suggesting
 a separate bar chart for the mean reaction times for targets, non-targets, and
-percent correct.  Please use the summary above as a correct description of you
+percent correct.  Please use the summary above as a correct description of your
 task.
