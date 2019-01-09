@@ -228,7 +228,7 @@ P is the participant, and N is the N-back number, you will have one figure for e
 * P=1, N=3
 * P=1, N=4
 * P=2, N=1
-...
+* (etc, up to ...)
 * P=4, N=4
 
 Each figure will have:
