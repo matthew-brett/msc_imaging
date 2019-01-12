@@ -343,6 +343,7 @@ noticed that the output has a sentence at the top, saying something like:
 
 > Mask /home/data/FBI/assessment/ds107/lateral_otc_cube.nii is in
 > space of standard.
+>
 > Image of mask in native space:
 
 As this implies, Featquery found the registration parameters in the FEAT directory, and transformed the mask from standard to native space.  See below for the steps it will have used.
@@ -352,7 +353,7 @@ typically called `featquery`, in the FEAT directory.
 
 ### Option 1, native to standard, using Renderhighres
 
-Another GUI option is a use the [Renderhighres](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide#FEAT_Programs) utility.
+Another GUI option is to use the [Renderhighres](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide#FEAT_Programs) utility.
 
 Try running `Renderhighres` from the terminal.
 
