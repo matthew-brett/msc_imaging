@@ -183,6 +183,217 @@ As you might be able to see from that script, I had to write small
 algorithms to analyze the events, and select the ones corresponding
 to the individual trial types.
 
+## Why do I get errors using the mask files with fslmaths?
+
+I'm afraid the masking problem is rather more difficult than I meant
+it to be.
+
+### Natve and standard space
+
+To understand what's going on, we need to distinguish between:
+
+* native (subject) space;
+* standard (template) space.
+
+See this [introduction to coordinate
+systems](http://nipy.org/nibabel/coordinate_systems.html) for the
+meaning of *space*.  In what follows, I will use the term
+*orientation* to refer to the *affine* in the page above.  Read the
+page to see what that means.
+
+An image in *native space* has image dimensions, voxel sizes, and
+orientation from the images acquired in the scanner.  You can see
+this information with the `fslhd` command, that displays the NIfTI
+image header.  For example, here's an excerpt from the output of
+running `fslhd
+/home/data/FBI/assessment/ds107/sub-01/func/sub-01_task-onebacktask_run-01_bold.nii.gz`:
+
+```
+sizeof_hdr     348
+data_type      INT16
+dim0           4
+dim1           64
+dim2           64
+dim3           35
+dim4           164
+...
+pixdim0        0.000000
+pixdim1        3.000000
+pixdim2        3.000000
+pixdim3        3.000000
+pixdim4        3.000000
+...
+sform_name     Scanner Anat
+sform_code     1
+sto_xyz:1      3.000000  0.000000  0.000000  -93.000000
+sto_xyz:2      0.000000  3.000000  0.000000  -103.556091
+sto_xyz:3      0.000000  0.000000  3.000000  -51.734001
+sto_xyz:4      0.000000  0.000000  0.000000  1.000000
+```
+
+The `dim` fields give the image dimensions, in this case 64 by 64 by
+35 by 164.  These correspond to the image `shape` in the Python code from the lectures.
+
+The `pixdim` fields give the voxel sizes, in millimetres.  In this
+case the voxels are 3 by 3 by 3mm. The TR is also 3, confusingly, so
+we see 4 `3.000000` values.
+
+The `sform` fields give the orientation (affine). The orientation
+gives the relationship between voxel positions in the image to
+millimetre positions in terms of the scanner. See the page above for
+more explanation.
+
+Contrast this with an image in *standard* or *template* space. An
+image in *standard space* has image dimensions, voxel sizes, and
+orientation from a standard template image.  Here are some excerpts
+from the output of `fslhd
+/usr/local/fsl/data/standard/avg152T1.nii.gz`:
+
+```
+sizeof_hdr     348
+data_type      INT16
+dim0           3
+dim1           91
+dim2           109
+dim3           91
+dim4           1
+...
+pixdim0        0.000000
+pixdim1        2.000000
+pixdim2        2.000000
+pixdim3        2.000000
+pixdim4        1.000000
+...
+sform_name     MNI_152
+sform_code     4
+sto_xyz:1      -2.000000  0.000000  0.000000  90.000000
+sto_xyz:2      0.000000  2.000000  0.000000  -126.000000
+sto_xyz:3      0.000000  0.000000  2.000000  -72.000000
+sto_xyz:4      0.000000  0.000000  0.000000  1.000000
+```
+
+This is a three-dimensional image, with image shape 91 by 109 by 91
+and voxel sizes of 2 by 2 by 2mm.  The orientation (affine) gives the
+relationship between voxel positions in the template and millimetres
+in the standard template space.
+
+As you may have gathered from [the
+lectures](https://matthew-brett.github.io/fbi2018/chapters/03/normalization),
+*registration* or *spatial normalization* is the process we use to
+work out the correspondence between *native space* for a particular
+subject, and *template space*.
+
+### Native and template space in FEAT analysis directories
+
+Now let us look at the space of statistics images in your analyses.
+If you try a few `fslhd` commands, you will find that:
+
+* first-level statistics images are in native space, even if you have
+  specified template registration in FEAT;
+* higher-level statistics images are template space.
+
+In fact, if you look closely at the output log of your second-level
+analyses, you will see they include execution of the command
+`featregapply`, that uses the calculated registration to generate new
+copies of some analysis images, transformed to template space.  This
+is the command that puts the higher-level analysis images into
+template space. ### Using the masks in native and standard space
+
+### Using the masks with statistics images
+
+With the background above, we can check the *space* of the mask
+images, with e.g. `fslhd
+/home/data/FBI/assessment/ds107/lateral_otc_cube.nii`.  You will see
+that the mask has the same information as the template image above.
+It is in template space.   That makes sense, because the paper
+defines the mask coordinates in template space.  That is the only
+reasonable thing to do, because we want to the mask to apply to all
+the subjects, and this will only make sense when we have transformed
+the subject data to the same position, shape and size \- the position, shape and size of the template.
+
+Now consider what should happen if we try to use the mask in an `fslstats` command on a native space image.  After a little reflection, we try it, and find:
+
+```
+$ fslstats sub-01_run-01.feat/stats/zstat1.nii.gz -k data/lateral_otc_cube.nii -M
+Mask and image must be the same size
+```
+
+That is what should happen.  `fslstats` sees that the mask is in a different space to the data, and stops, with an error, because it cannot work out the correspondence of the voxels in the mask to the voxels in the native space data.
+
+There are two basic ways of solving this problem:
+
+1.   Transform the first-level statistics images to standard space,
+     using the registration information you already calculated in the
+     FEAT run.  Use `fslstats` to apply the original mask to the
+     transformed statistics image.
+2.   Transform the mask to the subject's native space. using the
+     registration information you already calculated in the FEAT run.
+     Use `fslstats` to apply the transformed mask to the original
+     statistics image.
+
+### Option 1 - transforming native images to template space
+
+Option 1 is a little easier, because there is a related GUI command
+you can use - [Renderhighres](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide#FEAT_Programs).
+
+Try running `Renderhighres` from the terminal.
+
+Notice the capital R.   Select the feat directory, and run.  In your
+feat directory, you now have a new sub-directory called `hr` (for
+High Res).  This has, among other things, the transformed
+`thresh_zstat` images.  Assuming you did uncorrected 0.05
+thresholding in your original FEAT run, the `thresh_zstat` images
+should be thresholded low enough for you to be able to generate all
+the images you need, by applying the mask, and thresholding at
+different z values.
+
+### Option 2 - transforming the mask to native space
+
+Option 2 involves getting down and dirty with the commands that FSL uses for registration.
+
+See [this FAQ entry](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FLIRT/FAQ#How_do_I_transform_a_mask_with_FLIRT_from_one_space_to_another.3F) for more background.
+
+Example 1 in the page above shows the command for converting a mask
+from native to standard space.  Our option 2 involves going the
+opposite way round, transforming from standard to native space.  For
+example, here is me doing the transformation for one of my subjects:
+
+```
+$ cd ~/replication/sub-01_run-01.feat
+$ flirt -in ~/replication/data/lateral_otc_cube -ref example_func
+-applyxfm -init reg/standard2example_func.mat -out sub_2_lateral_otc
+```
+
+In more detail:
+
+* `flirt` is the FSL registration command.
+* `-in ~/replication/data/lateral_otc_cube` tells `flirt` to work on
+  the original template space image.
+* `-ref example_func` tells flirt the image that has the space that
+  it should transform to - our *native* space for this subject.
+* `-applyxfm` tells `flirt` to apply a transform it has already
+  calculated.
+* `-init reg/standard2example_func.mat` points `flirt` at the
+  parameters it has already calculated in the FEAT step for
+  transforming the template to native space.
+* `-out sub_2_lateral_otc` gives the output name for the new
+  resampled mask image.
+
+As the page above explains, the resampling process involves taking various averages across voxels in the mask, when these averages involve voxels with 0 and 1, the values will not be 0 or 1, but some value in between.
+
+For that reason, to make the image into a proper mask, with only 0 or 1, you should binarize, using `fslmaths`, e.g.:
+
+```
+fslmaths sub_2_lateral_otc  -thr 0.5 -bin sub_2_lateral_otc_bin
+```
+
+This mask is in this subjects' native space, and will work with `fslstats` commands.
+
+If you go this route (option 2), remember that each subject has
+a different native space.  Therefore, you will have to run these
+commands separately for each subject.  If you want to make your
+analysis replicable, you should record the commands you used
+
 ## Which images should I refer to in my report?
 
 In your output directory for each task, you will likely have image
