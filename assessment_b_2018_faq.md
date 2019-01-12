@@ -332,10 +332,27 @@ There are two basic ways of solving this problem:
      Use `fslstats` to apply the transformed mask to the original
      statistics image.
 
-### Option 1 - transforming native images to template space
+### Option 2, standard to native, using Featquery
 
-Option 1 is a little easier, because there is a related GUI command
-you can use - [Renderhighres](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide#FEAT_Programs).
+Thanks to Kara Farrar for pointing me to this method.
+
+If you run the Featquery GUI, you will see the option to specify a mask.  Here you can select, for example, the original `lateral_otc_cub.nii` mask.
+
+If you select a first-level FEAT directory as input, you may have
+noticed that the output has a sentence at the top, saying something like:
+
+> Mask /home/data/FBI/assessment/ds107/lateral_otc_cube.nii is in
+> space of standard.
+> Image of mask in native space:
+
+As this implies, Featquery found the registration parameters in the FEAT directory, and transformed the mask from standard to native space.  See below for the steps it will have used.
+
+The output image is `mask.nii.gz` in Featquery's output directory,
+typically called `featquery`, in the FEAT directory.
+
+### Option 1, native to standard, using Renderhighres
+
+Another GUI option is a use the [Renderhighres](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide#FEAT_Programs) utility.
 
 Try running `Renderhighres` from the terminal.
 
@@ -348,9 +365,9 @@ should be thresholded low enough for you to be able to generate all
 the images you need, by applying the mask, and thresholding at
 different z values.
 
-### Option 2 - transforming the mask to native space
+### Option 2, standard to native, using flirt
 
-Option 2 involves getting down and dirty with the commands that FSL uses for registration.
+This involves getting down and dirty with the commands that FSL uses for registration.
 
 See [this FAQ entry](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FLIRT/FAQ#How_do_I_transform_a_mask_with_FLIRT_from_one_space_to_another.3F) for more background.
 
