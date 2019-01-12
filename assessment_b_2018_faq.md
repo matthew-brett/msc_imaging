@@ -188,7 +188,7 @@ to the individual trial types.
 I'm afraid the masking problem is rather more difficult than I meant
 it to be.
 
-### Natve and standard space
+### Native and standard space
 
 To understand what's going on, we need to distinguish between:
 
@@ -297,7 +297,7 @@ analyses, you will see they include execution of the command
 `featregapply`, that uses the calculated registration to generate new
 copies of some analysis images, transformed to template space.  This
 is the command that puts the higher-level analysis images into
-template space. ### Using the masks in native and standard space
+template space.
 
 ### Using the masks with statistics images
 
@@ -306,10 +306,11 @@ images, with e.g. `fslhd
 /home/data/FBI/assessment/ds107/lateral_otc_cube.nii`.  You will see
 that the mask has the same information as the template image above.
 It is in template space.   That makes sense, because the paper
-defines the mask coordinates in template space.  That is the only
-reasonable thing to do, because we want to the mask to apply to all
-the subjects, and this will only make sense when we have transformed
-the subject data to the same position, shape and size \- the position, shape and size of the template.
+defines the mask coordinates in template space.  Using template space
+is the only reasonable thing to do, because we want the mask to apply
+to all the subjects, and this will only make sense when we have
+transformed the subject data to the same position, shape and size \-
+the position, shape and size of the template.
 
 Now consider what should happen if we try to use the mask in an `fslstats` command on a native space image.  After a little reflection, we try it, and find:
 
@@ -361,7 +362,7 @@ example, here is me doing the transformation for one of my subjects:
 ```
 $ cd ~/replication/sub-01_run-01.feat
 $ flirt -in ~/replication/data/lateral_otc_cube -ref example_func
--applyxfm -init reg/standard2example_func.mat -out sub_2_lateral_otc
+-applyxfm -init reg/standard2example_func.mat -out sub-01_lateral_otc
 ```
 
 In more detail:
@@ -376,7 +377,7 @@ In more detail:
 * `-init reg/standard2example_func.mat` points `flirt` at the
   parameters it has already calculated in the FEAT step for
   transforming the template to native space.
-* `-out sub_2_lateral_otc` gives the output name for the new
+* `-out sub-01_lateral_otc` gives the output name for the new
   resampled mask image.
 
 As the page above explains, the resampling process involves taking various averages across voxels in the mask, when these averages involve voxels with 0 and 1, the values will not be 0 or 1, but some value in between.
@@ -384,10 +385,11 @@ As the page above explains, the resampling process involves taking various avera
 For that reason, to make the image into a proper mask, with only 0 or 1, you should binarize, using `fslmaths`, e.g.:
 
 ```
-fslmaths sub_2_lateral_otc  -thr 0.5 -bin sub_2_lateral_otc_bin
+fslmaths sub-01_lateral_otc  -thr 0.5 -bin sub-01_lateral_otc_bin
 ```
 
-This mask is in this subjects' native space, and will work with `fslstats` commands.
+This mask is in this subject's native space, and will work with
+`fslstats` commands.
 
 If you go this route (option 2), remember that each subject has
 a different native space.  Therefore, you will have to run these
