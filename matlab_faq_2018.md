@@ -125,6 +125,78 @@ seq_cells = table2array(seq_table);
 sequence_back = cell2mat(seq_cells)
 ```
 
+## I'm still stuck, what now?
+
+Keep thinking of ways to split the task up into stages.
+
+For example, these stages:
+
+* write `generate_sequence` function
+* write `deliver_n_back` function
+* write `save_run` function
+* write `analyze_n_back` function
+* write `analysis` script.
+
+If you get stuck on one stage, work on another.
+
+To help you, here a zip file containing [example_response
+files](https://github.com/matthew-brett/msc_imaging/raw/master/example_responses.zip).
+
+The zip has the following files, simulating a set of output files from `deliver_n_back` and `save_run` from a single subject:
+
+* `participant_01_1_back.csv`
+* `participant_01_2_back.csv`
+* `participant_01_3_back.csv`
+* `participant_01_4_back.csv`
+
+You can use these to start work straight away on `analyze_n_back` and the `analysis` script.
+
+Remember, `analyze_n_back`, has the following signature:
+
+```{matlab}
+fig = analyze_n_back(filename, N)
+```
+
+So, you can start right away on `analyze_n_back`, testing with (e.g.):
+
+```{matlab}
+fig = analyze_n_back('participant_01_1_back.csv', 1)
+```
+
+You can also get going on `deliver_n_back`, without finishing `generate_sequence`, because the example files have example sequences in them.
+
+For example:
+
+```{matlab}
+% Get stimulus, desired response from response file
+seq_resps = readtable('participant_01_1_back.csv');
+% Convert to seq char array
+sequence = cell2mat(seq_resps{:, 1:2});
+```
+
+Now you can try building up your `deliver_n_back` function, testing with:
+
+```{matlab}
+rts, responses = deliver_n_back(sequence);
+```
+
+You can also test your `save_run` function, with something like:
+
+```{matlab}
+% Get stimulus, desired response from response file
+seq_resps = readtable('participant_01_1_back.csv');
+% Split into sequence, rts and responses
+sequence = cell2mat(seq_resps{:, 1:2});
+rts = seq_resps{:, 3};
+responses = cell2mat(seq_resps{:, 4})
+```
+
+Then:
+
+```{matlab}
+save_run('test.csv', sequence, rts, responses)
+```
+
 ## But what if I'm still stuck?
 
 Keep moving.  Another way to do this, is to start writing your function in
