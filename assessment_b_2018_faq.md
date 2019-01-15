@@ -116,10 +116,10 @@ well as the intercept column of all ones.
 The analysis estimates a slope relating the haemodynamic predictor
 (x) to the voxel signal (y).
 
-The slope is in the following situation: the signal is low, when the
-predictor is low (or negative), and high when the predictor is high.
-Notice that the predictor is low during the rest blocks (the stuff we
-have not modeled).
+The slope is positive in the following situation: the signal is low, when the
+predictor is low (or negative), and high when the predictor is high. Notice
+that the predictor is low during the rest blocks (the stuff we have not
+modeled).
 
 This is generally true; the event regressors are high when the events
 have just happened, and low during periods when the events are not
