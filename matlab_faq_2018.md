@@ -324,3 +324,22 @@ The assessment document is confusing (otherwise put, confused) in suggesting
 a separate bar chart for the mean reaction times for targets, non-targets, and
 percent correct.  Please use the summary above as a correct description of your
 task.
+
+## Can you give any hints on how to write out the results file?
+
+You may find that it is more difficult to write the results file, than it was
+to write the sequences.
+
+This is because Matlab is a little creaky when saving columns of different
+types of data to CSV files.  Specifically, you will find that you can't easily
+use `csvwrite`.
+
+If you want to use the old-school Matlab functions to solve this problem, have
+a look at the [Matlab help for
+fprintf](https://uk.mathworks.com/help/matlab/ref/fprintf.html).
+
+Another option is to use the more modern data
+[table](https://uk.mathworks.com/help/matlab/ref/table.html).  If you can
+create one of those, you will likely find the
+[writetable](https://uk.mathworks.com/help/matlab/ref/writetable.html) function
+is useful for your task.
