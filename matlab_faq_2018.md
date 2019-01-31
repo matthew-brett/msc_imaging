@@ -285,6 +285,14 @@ Remember, if you want to use someone else's code in your assessment work, you
 have to ask us for permission *before you submit*.  Otherwise, we go back to
 the plagiarism rules that you'll see in the assessment document.
 
+I have given permission for these two functions, as long as you fulfill the other conditions above:
+
+* [getkey](https://uk.mathworks.com/matlabcentral/fileexchange/7465-getkey)
+* [getkeywait](https://uk.mathworks.com/matlabcentral/fileexchange/8297-getkeywait)
+
+Also, any code that you see in this document, you can use and edit freely
+without conditions.
+
 ## What should my analysis figures have on them?
 
 The assessment document is a bit confused about the analysis outputs, so here is a clarification.
