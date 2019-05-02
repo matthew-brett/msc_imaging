@@ -2,9 +2,10 @@
 
 Feel free to propose edits or new questions for this FAQ.
 
-You can do that by email to <m.brett@bham.ac.uk>, or for cool points, use the
-pen icon at the top right of the page to make and propose your edits.  You'll
-need a Github account for that, but that's a good thing to have in any case.
+You can do that by email to <m.brett@bham.ac.uk>, or for cool points,
+use the pen icon at the top right of the page to make and propose your
+edits.  You'll need a Github account for that, but that's a good thing
+to have in any case.
 
 ## What do you mean "roughly equal chance" of stimulus presentation?
 
@@ -50,21 +51,6 @@ do not use Psychtoolbox, for that reason.
 You can display a blank screen between the stimuli, if you like, or a fixation
 cross.   Choose the option that gives the best results in terms of helping the
 participants concentrate on the task.
-
-## Isn't the assessment doc wrong about when the first target can happen?
-
-Yes it is.  The assessment doc says:
-
-> You should discard the first N-1 trials from your analysis, because the
-> subject will know these cannot be targets.  For example, for the 4-back
-> task, the subject will know that presentations 1, 2, and 3 cannot be
-> targets.
-
-As Justin Chung pointed out, this is wrong, and you should discard the first
-N trials.  The first trial number that a target can appear is N + 1, and
-therefore the first N trials cannot be targets.  For example, for a 1-back
-task, the first trial cannot be a target, but the second trial can (trial
-N + 1)
 
 ## What can I do if I get stuck?
 
@@ -292,46 +278,6 @@ I have given permission for these two functions, as long as you fulfill the othe
 
 Also, any code that you see in this document, you can use and edit freely
 without conditions.
-
-## What should my analysis figures have on them?
-
-The assessment document is a bit confused about the analysis outputs, so here is a clarification.
-
-We are expecting that you will generate a single figure, for each combination
-of participant and N-back number.
-
-That is, if you have three participants, you will have 3 * 4 = 12 figures.  If
-P is the participant, and N is the N-back number, you will have one figure for each of:
-
-* P=1, N=1
-* P=1, N=2
-* P=1, N=3
-* P=1, N=4
-* P=2, N=1
-* (etc, up to ...)
-* P=4, N=4
-
-Each figure will have:
-
-* The reaction time distribution for correct responses for this participant,
-  version of the task.
-* A display of the mean reaction time for correct responses to targets, for
-  this participant, version of the task.
-* A display of the mean reaction time for correct responses to non-targets, for
-  this participant, version of the task.
-* A display of percent correct, for this participant, version of the task.
-
-The display of mean reaction time for correct responses to targets,
-non-targets, might be in the form of a bar chart, or box plot.
-
-Your `analysis.m` script will generate all these figures; that is, it will
-generate all the figures for participant 1 1-back, participant 1 2-back ...
-participant 3 4-back.
-
-The assessment document is confusing (otherwise put, confused) in suggesting
-a separate bar chart for the mean reaction times for targets, non-targets, and
-percent correct.  Please use the summary above as a correct description of your
-task.
 
 ## Can you give any hints on how to write out the results file?
 
